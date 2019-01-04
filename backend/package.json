@@ -1,0 +1,36 @@
+{
+  "name": "nodejs-developerlevel-api",
+  "version": "1.0.0",
+  "description": "NodeJS API for DeveloperLevel",
+  "engines": {
+    "node": ">= 7.6.0"
+  },
+  "scripts": {
+    "prod": "node ./start.js",
+    "dev": "nodemon ./start.js --ignore public node_modules/",
+    "tests": "node tests/run"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.2",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-validator": "^5.3.0",
+    "jsonwebtoken": "^8.4.0",
+    "moment": "^2.22.2",
+    "mongoose": "^5.3.13",
+    "mongoose-mongodb-errors": "0.0.2",
+    "nodemailer": "^4.7.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.6",
+    "sinon": "^7.2.0"
+  }
+}
