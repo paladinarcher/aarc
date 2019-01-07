@@ -41,7 +41,6 @@ class Forgot extends Component {
                     <p>
                         Don't have an account?&nbsp;
                         <a href="#/register" id="at-signUp" className="at-link at-signup">Register</a>
-
                     </p>
                 </div>
 
