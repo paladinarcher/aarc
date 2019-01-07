@@ -9,46 +9,46 @@ class App extends Component {
   render() {
     return (
 
-        <section class="Auth_page">
+        <section className="Auth_page">
         {/* <!-- Banner plus Start Your MBTI --> */}
 
-            <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="http://DeveloperLevel.com">
+            <nav className="navbar navbar-inverse">
+                <div className="container-fluid">
+                    <div className="navbar-header">
+                        <a className="navbar-brand" href="http://DeveloperLevel.com">
                         <img src="images/DevLevelLogoAndWordsWhite.5.25.png" alt="Helping Developers Grow"></img>
                         </a>
                     </div>
                 </div>
             </nav>
 
-            <div class="container">
+            <div className="container">
 
                 {/* <!-- assessment section --> */}
-                <div class="col-sm-5 col-sm-push-6 questions">
-                    <div class="center">
+                <div className="col-sm-5 col-sm-push-6 questions">
+                    <div className="center">
                         <a href="/questions">
                             Start Your <br></br>
-                            <span class="assess"> mbti </span> <br></br>
+                            <span className="assess"> mbti </span> <br></br>
                             Assessment
                         </a>
                     </div>
                 </div>
 
                 {/* <!-- divide page with or --> */}
-                <div class="col-sm-1 divider">
-                    <div class="line1"></div>
-                    <hr class="hr1"></hr>
-                    <div class="other">
+                <div className="col-sm-1 divider">
+                    <div className="line1"></div>
+                    <hr className="hr1"></hr>
+                    <div className="other">
                         OR
                     </div>
-                    <hr ClassName="hr2"></hr>
-                    <div class="line2"></div>
+                    <hr className="hr2"></hr>
+                    <div className="line2"></div>
                 </div>
 
                 <HashRouter>
                 <Switch>
-                    <Route path="/login" component={Login} />
+                    <Route path="/" component={Login} exact />
                     <Route path="/forgot" exact component={Forgot} />
                     <Route path="/register" component={Register} />
                 </Switch>

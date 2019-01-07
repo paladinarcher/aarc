@@ -45,7 +45,7 @@ class Login extends Component {
                             <div class="at-pwd-link">
                                 <p>
 
-                                    <a href="/pw-recovery.html" id="at-forgotPwd" class="at-link at-pwd">Forgot your
+                                    <a href="#/forgot" id="at-forgotPwd" class="at-link at-pwd">Forgot your
                                         password?</a>
 
                                 </p>
@@ -58,13 +58,10 @@ class Login extends Component {
                     </form>
                 </div>
 
-
-
-
                 <div class="at-signup-link">
                     <p>
-                        Don't have an account?
-                        <a href="/register.html" id="at-signUp" class="at-link at-signup">Register</a>
+                        Don't have an account?&nbsp;
+                        <a href="#/register" id="at-signUp" class="at-link at-signup">Register</a>
                     </p>
                 </div>
 
