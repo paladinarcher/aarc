@@ -3,6 +3,20 @@ import React, { Component } from 'react';
 import '../App.css';
 
 class Forgot extends Component {
+    constructor(){
+        super()
+
+        this.state = {
+            username: ""
+        }
+    }
+
+    updateInfo(updatedInfo,target) {
+        this.setState({
+            target:updatedInfo
+        })
+    }
+
   render() {
     return (
 <div>
@@ -15,22 +29,25 @@ class Forgot extends Component {
           </div>
 
           <div className="at-pwd-form">
-                    <form id="at-pwd-form" novalidate="" 
+                    <form id="at-pwd-form" noValidate="" 
                      action="http://localhost:3001/users/forgot" method="POST">
                         <fieldset>
 
 
                             <div className="at-input form-group">
-                                <label className="control-label" for="at-field-email">
+                                <label className="control-label" htmlFor="at-field-email">
                                     Email
                                 </label>
                                 <input type="email" className="form-control" id="username" name="username"
-                                autocapitalize="none" autocorrect="off"></input>
+                                autoCapitalize="none" autoCorrect="off"
+                                onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.username}
+                                ></input>
 
                                 <span className="help-block hide"></span>
                             </div>
 
-                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" id="at-btn">
+                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" 
+                            id="at-btn">
                                 Email Reset Link
                             </button>
                         </fieldset>

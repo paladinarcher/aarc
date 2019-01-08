@@ -1,8 +1,44 @@
 
 import React, { Component } from 'react';
 import '../App.css';
+import axios from 'axios';
 
 class Register extends Component {
+    constructor(){
+        super()
+
+        this.state = {
+            username: "",
+            password: "",
+            password_confirm: "",
+            firstName: "",
+            lastName: "",
+            email: ""
+        }
+    }
+
+    updateInfo(updatedInfo,target) {
+        this.setState({
+            [target]:updatedInfo
+        })
+    }
+
+    registerUser() {
+        let body = {
+            email:this.state.username,
+            username:this.state.username,
+            password:this.state.password,
+            password_confirm:this.state.password_confirm,
+            firstName:this.state.firstName,
+            lastName:this.state.lastName
+        }
+        let promise = axios.post('http://localhost:8888/api/v1/register',body)
+        promise.then(res => {
+            console.log("Response:\n",res.data)
+        })
+    }
+
+    
   render() {
     return (
 
@@ -22,11 +58,13 @@ class Register extends Component {
                         <fieldset>
 
                             <div className="at-input form-group">
-                                <label className="control-label" for="username">
+                                <label className="control-label" htmlFor="username">
                                     Email
                                 </label>
                                 <input type="email" className="form-control" id="username" name="username"
-                                    autocapitalize="none" autocorrect="off" autocomplete="username email"></input>
+                                    autoCapitalize="none" autoCorrect="off" autoComplete="username email"
+                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.username}
+                                    ></input>
 
                                 <span className="help-block hide"></span>
                             </div>
@@ -34,51 +72,58 @@ class Register extends Component {
 
 
                             <div className="at-input form-group">
-                                <label className="control-label" for="password">
+                                <label className="control-label" htmlFor="password">
                                     Password
                                 </label>
                                 <input type="password" className="form-control" id="password" name="password"
-                                    autocapitalize="none" autocorrect="off" autocomplete="new-password"></input>
+                                    autoCapitalize="none" autoCorrect="off" autoComplete="new-password"
+                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.password}
+                                    ></input>
 
                                 <span className="help-block hide"></span>
                             </div>
 
 
                             <div className="at-input form-group">
-                                <label className="control-label" for="password_again">
+                                <label className="control-label" htmlFor="password_confirm">
                                     Password (again)
                                 </label>
-                                <input type="password" className="form-control" id="password_again" name="password_again"
-                                    autocapitalize="none" onkeyup="checkPass(); return false;"></input>
+                                <input type="password" className="form-control" id="password_confirm" name="password_confirm"
+                                    autoCapitalize="none" 
+                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.password_confirm}
+                                    ></input>
                                 <span id="confirmMessage" className="confirmMessage" style={{float:'right'}}></span>
                                 <span className="help-block hide"></span>
                             </div>
 
 
                             <div className="at-input form-group">
-                                <label className="control-label" for="at-field-first_name">
+                                <label className="control-label" htmlFor="firstName">
                                     First Name
                                 </label>
-                                <input type="text" className="form-control" id="at-field-first_name" name="firstName"
-                                    autocapitalize="none" autocorrect="off"></input>
-
+                                <input type="text" className="form-control" id="firstName" name="firstName"
+                                    autoCapitalize="none" autoCorrect="off"
+                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.firstName}
+                                    ></input>
                                 <span className="help-block hide"></span>
                             </div>
-
 
 
                             <div className="at-input form-group">
-                                <label className="control-label" for="at-field-last_name">
+                                <label className="control-label" htmlFor="lastName">
                                     Last Name
                                 </label>
-                                <input type="text" className="form-control" id="at-field-last_name" name="lastName"
-                                    autocapitalize="none" autocorrect="off"></input>
+                                <input type="text" className="form-control" id="lastName" name="lastName"
+                                    autoCapitalize="none" autoCorrect="off"
+                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.lastName}
+                                    ></input>
 
                                 <span className="help-block hide"></span>
                             </div>
 
 
-                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" id="at-btn">
+                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" 
+                            id="at-btn" onClick={() => this.registerUser()}>
                                 Register Now!
                             </button>
                         </fieldset>
