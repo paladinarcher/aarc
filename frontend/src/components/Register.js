@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import '../App.css';
 import axios from 'axios';
-// import cors from 'cors'
 
 class Register extends Component {
     constructor(){
@@ -36,7 +35,6 @@ class Register extends Component {
         let promise = axios.post('http://localhost:8888/api/v1/register',body)
         promise.then(res => {
             console.log("Response:\n",res.data)
-            .catch(err)
         })
     }
 

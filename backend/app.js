@@ -7,6 +7,7 @@ const globals = require('./globals');
 const routes = require('./routes/index');
 const { verify } = require ("./util/jwt_module");
 const errorHandlers = require('./handlers/errorHandlers');
+const cors = require('cors'); // added by Jesse 1/8/19
 
 const User = mongoose.model('User');
 
@@ -16,6 +17,9 @@ const app = express();
 /* 
  * Application wide middleware
  */
+
+// Allows cros-origin references.
+app.use(cors());
 
 // Takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json());
