@@ -19,16 +19,17 @@ class Login extends Component {
         })
     }
     
-    loginUser() {
-        let body = {
+    async loginUser() {
+        try {
+            let data = {
             username:this.state.username,
             password:this.state.password
-        }
-        axios.post('http://localhost:8888/api/v1/login',body)
-        .then(res => {
-            console.log("res:\n",res)
+            }
+            await axios.post('http://localhost:8888/api/v1/login',data)
             window.location.href = "http://app.developerlevel.com/dashboard";
-        })
+        } catch(e) {
+            alert ("Invalid login")
+        }
     }
 
   render() {
