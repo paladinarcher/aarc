@@ -34,7 +34,7 @@ class Register extends Component {
         }
         let promise = axios.post('http://localhost:8888/api/v1/register',body)
         promise.then(res => {
-            console.log("Response:\n",res.data)
+            window.location.href = "./";
         })
     }
 
