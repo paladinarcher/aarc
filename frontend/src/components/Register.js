@@ -23,19 +23,24 @@ class Register extends Component {
         })
     }
 
-    registerUser() {
-        let body = {
-            email:this.state.username,
-            username:this.state.username,
-            password:this.state.password,
-            password_confirm:this.state.password_confirm,
-            firstName:this.state.firstName,
-            lastName:this.state.lastName
+    async registerUser() {
+        try {
+            let body = {
+                email:this.state.username,
+                username:this.state.username,
+                password:this.state.password,
+                password_confirm:this.state.password_confirm,
+                firstName:this.state.firstName,
+                lastName:this.state.lastName
+            }
+            await axios.post('http://localhost:8888/api/v1/register',body)
+              .then(res => {
+                window.location.href = "http://app.developerlevel.com/dashboard";
+              })
+        } catch(e) {
+            // console.log("################### ERROR ###############\n",e)
+            alert ("Leave something blank?")
         }
-        let promise = axios.post('http://localhost:8888/api/v1/register',body)
-        promise.then(res => {
-            console.log("Response:\n",res.data)
-        })
     }
 
     
@@ -122,7 +127,7 @@ class Register extends Component {
                             </div>
 
 
-                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" 
+                            <button className="at-btn submit btn btn-lg btn-block btn-default" 
                             id="at-btn" onClick={() => this.registerUser()}>
                                 Register Now!
                             </button>

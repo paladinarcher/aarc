@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import '../App.css';
+import axios from 'axios';
 
 class Login extends Component {
     constructor(){
@@ -18,36 +19,17 @@ class Login extends Component {
         })
     }
     
-    onClick() {
-        /* attach a submit handler to the form */
-        // $("#at-pwd-form").submit(function (event) {
-    
-        //   /* stop form from submitting normally */
-        //   event.preventDefault();
-    
-        //   /* get the action attribute from the <form action=""> element */
-        //   var $form = $(this),
-        //     url = $form.attr('action');
-    
-        //   /* Send the data using post */
-        //   var posting = $.post(
-        //     url,
-        //     {
-        //       username: $('#username').val(),
-        //       password: $('#password').val(),
-        //       loggedIn: true
-        //     },
-        //     function (data, status, jqXHR) {
-        //       alert("AuthAPI Token: \n" + data.token) // access the user token from here.
-        //     },
-        //     "json"
-        //   );
-    
-        //   /* redirects once logged in */
-        //   posting.done(function (data) {
-        //     window.location.assign("/dashboard");
-        //   });
-        // });
+    async loginUser() {
+        try {
+            let data = {
+            username:this.state.username,
+            password:this.state.password
+            }
+            await axios.post('http://localhost:8888/api/v1/login',data)
+            window.location.href = "http://app.developerlevel.com/dashboard";
+        } catch(e) {
+            alert ("Invalid login")
+        }
     }
 
   render() {
@@ -63,8 +45,7 @@ class Login extends Component {
                 </div>
 
                 <div className="at-pwd-form">
-                    <form id="at-pwd-form" noValidate="" 
-                    action="http://localhost:8888/api/v1/login" method="POST">
+                    <form id="at-pwd-form" noValidate="" >
                         <fieldset>
 
                             <div className="at-input form-group">
@@ -73,7 +54,7 @@ class Login extends Component {
                                 </label>
                                 <input type="email" className="form-control" id="username" name="username"
                                     autoCapitalize="none" autoCorrect="off" 
-                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.addy}></input>
+                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.username}></input>
 
                                 <span className="help-block hide"></span>
                             </div>
@@ -85,7 +66,7 @@ class Login extends Component {
                                 </label>
                                 <input type="password" className="form-control" id="password" name="at-field-password"
                                     autoCapitalize="none" autoCorrect="off"
-                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.pass}>
+                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.password}>
                                     </input>
 
                                 <span className="help-block hide"></span>
@@ -101,7 +82,8 @@ class Login extends Component {
                                 </p>
                             </div>
 
-                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" id="at-btn">
+                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" 
+                            id="at-btn" onClick={() => this.loginUser()}>
                                 Sign In
                             </button>
                         </fieldset>
