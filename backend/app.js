@@ -31,15 +31,15 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 
 // This validation function is used in userController.validateRegister to check
-// for duplicate usernames.
+// for duplicate emails.
 app.use(expressValidator({
 	customValidators: {
-		isUsernameAvailable: function(username) {
+		isEmailAvailable: function(email) {
 			return new Promise(function(resolve, reject) {
-				User.findOne({'username': username}, function(err, results) { 
+				User.findOne({'email': email}, function(err, results) { 
 					if(err) reject({
 						res,
-						message: "Database error while querying username from database",
+						message: "Database error while querying email from database",
 						errors: results,
 						status: 400
 					});

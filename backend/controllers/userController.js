@@ -46,7 +46,7 @@ exports.users = async (req, res, next) => {
 }
 
 /**
- * Return user demographic information for a username, if the logged in user is
+ * Return user demographic information for a email, if the logged in user is
  * properly authenticated with permissions (ie. admin, self, etc).
  * 
  * @param res response object.
@@ -55,12 +55,12 @@ exports.users = async (req, res, next) => {
  *
  * @return JSON response, indicating success
  */
-exports.getUserByUsername = async(req, res, next) => {
+exports.getUserByEmail = async(req, res, next) => {
 	getUserInfo(req, res, next, UserInfoType.DEMOGRAPHICS);
 }
 
 /**
- * Return user information for a username, if the logged in user is properly 
+ * Return user information for a email, if the logged in user is properly 
  * authenticated with permissions (ie. admin, self, etc).
  * 
  * @param res response object.
@@ -87,8 +87,8 @@ getUserInfo = async(req, res, next, infoType) => {
 		// check to see if any user is logged in
 		if (!req.user) return next(); // Will result in a 404
 
-		// find the user queried by the username
-		const user = await User.findOne({ username: req.params.username }).catch((err) => {
+		// find the user queried by the email
+		const user = await User.findOne({ email: req.params.email }).catch((err) => {
 			const error = new Error("Database error");
 			error.status = 500;
 			throw error; // caught by errorHandler
@@ -108,7 +108,6 @@ getUserInfo = async(req, res, next, infoType) => {
 			
 			switch (infoType) {
 				case UserInfoType.ROLES: {
-					data.username = user.username;
 					data.roles = user.roles;
 					break;
 				}
@@ -133,8 +132,8 @@ getUserInfo = async(req, res, next, infoType) => {
 		} else if (!user && hasPermission) {
 			return(res.locals.globals.jsonResponse({
 				res,
-				message: `${req.params.username}: Not found`,
-				status: 404 // In this case, the 404 says no user for username found
+				message: `${req.params.email}: Not found`,
+				status: 404 // In this case, the 404 says no user for email found
 			}));
 		} else {
 			return next(); //404

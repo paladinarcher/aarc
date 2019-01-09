@@ -38,7 +38,7 @@ describe("Checking login api", () => {
 		}
 	});
 
-	it("Missing username should return 422", (done) => {
+	it("Missing email should return 422", (done) => {
 		try {
 			chai
 				.request(tools.service)
@@ -54,7 +54,7 @@ describe("Checking login api", () => {
 		}
 	});
 
-	it("Invalid username should return 400", (done) => {
+	it("Invalid email should return 422", (done) => {
 		try {
 			chai
 				.request(tools.service)
@@ -62,7 +62,7 @@ describe("Checking login api", () => {
 				.set("Content-Type", "application/json")
 				.send(tools.get400LoginData(2))
 				.end((err, res) => {
-					chai.expect(res).to.have.status(400);
+					chai.expect(res).to.have.status(422);
 					done();
 				});
 		} catch (e) {

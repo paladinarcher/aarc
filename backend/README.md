@@ -87,9 +87,8 @@ npm run prod
 * Implementation of auth microservice
 * Implementation of appropriate database relationships to roles, demographics, etc.
 * Consideration whether isLoggedin should support admin capabilities
-* Decide whether /user/:username and /user/:username/roles should be merged into a single API
+* Decide whether /user/:email and /user/:email/roles should be merged into a single API
 * Consider using email token login vs password login?
-* In the reset method, decide whether to send the "Invalid username supplied" error message for security reasons.
 * Improve password reset email
 * Decide whether to leave user logged in after registration
 * Is the filtered user data for roles correct?
