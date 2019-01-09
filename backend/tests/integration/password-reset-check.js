@@ -37,20 +37,20 @@ describe("Checking password reset apis", () => {
 			});
 	});
 
-	it("wrong username should return 400", (done) => {
+	it("wrong email should return 422", (done) => {
 		chai
 			.request(tools.service)
 			.post("/api/v1/requestreset")
 			.set("Content-Type", "application/json")
 			.send(tools.get400RequestResetData(0))
 			.end((err, res) => {
-				chai.expect(res).to.have.status(400);
+				chai.expect(res).to.have.status(422);
 				done();
 			});
 	});
 	
 	if (process.env.NODE_ENV === 'development') {
-		it("valid username should return resettoken and call to reset should return 200", (done) => {
+		it("valid email should return resettoken and call to reset should return 200", (done) => {
 			chai
 				.request(tools.service)
 				.post("/api/v1/requestreset")
@@ -72,7 +72,7 @@ describe("Checking password reset apis", () => {
 				});
 		}).timeout(5000); // extend mocha's timeout to allow for time to send email
 	
-		it("valid username should return resettoken and call to reset with invalid token should return 400", (done) => {
+		it("valid email should return resettoken and call to reset with invalid token should return 400", (done) => {
 			chai
 				.request(tools.service)
 				.post("/api/v1/requestreset")

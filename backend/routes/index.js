@@ -36,14 +36,13 @@ router.get('/',	catchErrors(indexController.index));
 * @apiParam (Request body) {String} email User email address
 * @apiParam (Request body) {String} firstName User first name
 * @apiParam (Request body) {String} lastName User last name
-* @apiParam (Request body) {String} username User's username
 * @apiParam (Request body) {String} password User password
 * @deprecated @apiParam (Request body) {String} roles User roles [member|admin|manage_users]
 * @deprecated @apiParam (Request body) {String} demographics {js} name, gender
 *
 * @apiExample {command line} Example usage:
 * curl --header "Content-Type: application/json" --request POST \
-* --data '{"email": "johndoe@gmail.com", "username": "john", \
+* --data '{"email": "johndoe@gmail.com", \
 * "firstName": "John", "lastName": "Doe", "password":"foobar", \
 * "password_confirm":"foobar", "roles":["member"], \
 * "demographics":{"name":"John Doe", "gender":"male"}}' \
@@ -77,12 +76,12 @@ router.post('/register',
 * For subsequent auththenticated API access, the token must be provided as part 
 * of the response cookie or in the request JSON body using the "token" property.
 *
-* @apiParam (Request body) {String} username User's username
+* @apiParam (Request body) {String} email User's email
 * @apiParam (Request body) {String} password User password
 *
 * @apiExample {command line} Example usage:
 * curl --header "Content-Type: application/json" --request POST \
-* --cookie-jar ~/mycookie --data '{"username": "john", \
+* --cookie-jar ~/mycookie --data '{"email": "john@mailserver.com", \
 * "password": "foobar"}' \
 * http://localhost:8888/api/v1/login
 *
@@ -134,15 +133,15 @@ router.delete('/logout', catchErrors(authController.logout));
 * @apiGroup authentication
 * @apiPermission unauthorized user
 *
-* @apiParam (Request body) {String} username User's username
+* @apiParam (Request body) {String} email User's email
 *
 * @apiExample {command line} Example usage:
 * curl --header "Content-Type: application/json" --request POST \
-* --data '{"username": "john"}' \
+* --data '{"email": "john@mailserver.com"}' \
 * http://localhost:8888/api/v1/requestreset
 *
 * @apiSuccess (OK 200) {String} message: Success, {String} data: resetToken
-* @apiFailure: (Bad Request 400) {String} message: Invalid username supplied
+* @apiFailure: (Bad Request 400) {String} message: Invalid email supplied
 * @apiFailure: (Unprocessable Entity 422) {String} message: Registration validation error, {String array} errors: []
 * @apiFailure: (Internal Server Error 500) {String} message: Database error
 * @apiFailure: (Not Implemented 501) {String} message: Error while sending reset email, {String} data: resetToken
@@ -163,7 +162,7 @@ router.post('/requestreset',
 * @apiGroup authentication
 * @apiPermission unauthorized user
 *
-* @apiParam (Request body) {String} username User's username
+* @apiParam (Request body) {String} email User's email
 * @queryParam {String} resetToken reset token value returned by resetrequest
 *
 * @apiExample {command line} Example usage:
@@ -196,7 +195,7 @@ router.post('/reset', catchErrors(authController.reset));
 *
 * @apiExample {command line} Example usage:
 * curl --header "Content-Type: application/json" --request POST \
-* --cookie-jar ~/mycookie --data '{"username": "john", \
+* --cookie-jar ~/mycookie --data '{"email": "john@mailserver.com", \
 * "password": "foobar"}' \
 * http://localhost:8888/api/v1/login
 * curl --header "Content-Type: application/json" --request GET \
@@ -225,7 +224,7 @@ router.get('/isloggedin', catchErrors(authController.isLoggedin));
 *
 * @apiExample {command line} Example usage:
 * curl --header "Content-Type: application/json" --request POST \
-* --cookie-jar ~/mycookie --data '{"username": "john", \
+* --cookie-jar ~/mycookie --data '{"email": "john@mailserver.com", \
 * "password": "foobar"}' \
 * http://localhost:8888/api/v1/login
 * curl --header "Content-Type: application/json" --request GET \
@@ -243,7 +242,7 @@ router.get('/isloggedin', catchErrors(authController.isLoggedin));
 router.get('/users', catchErrors(userController.users));
 
 /**
-* @api {post} /api/v1/user/:username Report information about a particular user
+* @api {post} /api/v1/user/:email Report information about a particular user
 * @apiVersion 1.0.0
 * @apiName user
 * @apiGroup users
@@ -254,7 +253,7 @@ router.get('/users', catchErrors(userController.users));
 *
 * @apiExample {command line} Example usage:
 * curl --header "Content-Type: application/json" --request POST \
-* --cookie-jar ~/mycookie --data '{"username": "john", \
+* --cookie-jar ~/mycookie --data '{"email": "john@mailserver.com", \
 * "password": "foobar"}' \
 * http://localhost:8888/api/v1/login
 * curl --header "Content-Type: application/json" --request GET \
@@ -263,7 +262,7 @@ router.get('/users', catchErrors(userController.users));
 *
 * @apiSuccess (OK 200) {String} message: Success
 * @apiFailure: (Not Found 404) {String} message: Page not found
-* @apiFailure: (Not Found 404) {String} message: {username}: Not found
+* @apiFailure: (Not Found 404) {String} message: {email}: Not found
 * @apiFailure: (Internal Server Error 500) {String} message: Database error
 *
 * @apiSuccessExample {json} Success response:
@@ -271,10 +270,10 @@ router.get('/users', catchErrors(userController.users));
 *	Content-Type: application/json; charset=utf-8\
 *	{"status":200,"message":"Success","data":{"name":"John Doe","gender":"male","email":"johndoe@gmail.com"}}
 */
-router.get('/user/:username', catchErrors(userController.getUserByUsername));
+router.get('/user/:email', catchErrors(userController.getUserByEmail));
 
 /**
-* @api {post} /api/v1/user/:username/roles Report role information about a particular user
+* @api {post} /api/v1/user/:email/roles Report role information about a particular user
 * @apiVersion 1.0.0
 * @apiName roles
 * @apiGroup users
@@ -285,7 +284,7 @@ router.get('/user/:username', catchErrors(userController.getUserByUsername));
 *
 * @apiExample {command line} Example usage:
 * curl --header "Content-Type: application/json" --request POST \
-* --cookie-jar ~/mycookie --data '{"username": "jane", \
+* --cookie-jar ~/mycookie --data '{"email": "jane@mailserver.com", \
 * "password": "foobar"}' \
 * http://localhost:8888/api/v1/login
 * curl --header "Content-Type: application/json" --request GET \
@@ -294,14 +293,14 @@ router.get('/user/:username', catchErrors(userController.getUserByUsername));
 *
 * @apiSuccess (OK 200) {String} message: Success
 * @apiFailure: (Not Found 404) {String} message: Page not found
-* @apiFailure: (Not Found 404) {String} message: {username}: Not found
+* @apiFailure: (Not Found 404) {String} message: {email}: Not found
 * @apiFailure: (Internal Server Error 500) {String} message: Database error
 *
 * @apiSuccessExample {json} Success response:
 *	HTTPS 200 OK
 *	Content-Type: application/json; charset=utf-8\
-* 	{"status":200,"message":"Success","data":{"username":"john","roles":["member"]}}
+* 	{"status":200,"message":"Success","data":{"email":"john@mailserver.com","roles":["member"]}}
 */
-router.get('/user/:username/roles', catchErrors(userController.getUserRoles));
+router.get('/user/:email/roles', catchErrors(userController.getUserRoles));
 
 module.exports = router;

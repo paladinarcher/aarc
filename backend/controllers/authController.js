@@ -12,7 +12,6 @@ const { transport, makeEmail } = require('../handlers/mail');
  * be chained together via usage of next() with register().
  * 
  * @param req.body.email user's email address.
- * @param req.body.username user's username.
  * @param req.body.firstName user's first name.
  * @param req.body.lastName user's last name.
  * @param req.body.password user's. password.
@@ -21,13 +20,9 @@ const { transport, makeEmail } = require('../handlers/mail');
  * @return JSON response if validation fails, or next() if success.
  */
 exports.validateRegistration = async (req, res, next) => {
-	validateName(req, res, next);
-	
-	validateUsername(req, res, next);
-	req.checkBody('username', 
-		`${req.body.username} username is already used.`).isUsernameAvailable();
-
 	validateEmail(req, res, next);
+	req.checkBody('email', 
+	`${req.body.email} email is already used.`).isEmailAvailable();
 
 	validatePassword(req, res, next);
 	req.checkBody('password_confirm', 
@@ -42,7 +37,6 @@ exports.validateRegistration = async (req, res, next) => {
  * method.
  * 
  * @param req.body.email user's email address.
- * @param req.body.username user's username.
  * @param req.body.firstName user's first name.
  * @param req.body.lastName user's last name.
  * @param req.body.password user's. password.
@@ -63,7 +57,6 @@ exports.register = async (req, res) => {
 		email: req.body.email,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
-		username: req.body.username,
 		password, // hashed password
 
 		// FIXME (the next two fields are a total hack)
@@ -101,25 +94,25 @@ exports.register = async (req, res) => {
  * A method to validate login information. This method is intended to
  * be chained together via usage of next() with login().
  * 
- * @param req.body.username user's username.
+ * @param req.body.email user's email.
  * @param req.body.password user's. password.
  * @param res response object.
  *
  * @return JSON response if validation fails, or next() if success.
  */
 exports.validateLogin = async (req, res, next) => {
-	validateUsername(req, res, next);
+	validateEmail(req, res, next);
 	validatePassword(req, res, next);
 
 	checkValidation(req, res, next);
 }
 
 /**
- * Login user. The username and password are assumed to be sanitized
+ * Login user. The email and password are assumed to be sanitized
  * prior to calling this method for example by using the 
  * validateLogin method.
  * 
- * @param req.body.username user's username.
+ * @param req.body.email user's email.
  * @param req.body.password user's. password.
  * @param res response object.
  
@@ -131,7 +124,7 @@ exports.validateLogin = async (req, res, next) => {
  */
 exports.login = async (req, res) => {
 	//1. see if the user exists
-	const user = await User.findOne({username: req.body.username}).catch((err) => {
+	const user = await User.findOne({email: req.body.email}).catch((err) => {
 			const error = new Error(`Database error: ${err}`);
 			error.status = 500;
 			throw error; // caught by errorHandler
@@ -270,7 +263,7 @@ exports.isLoggedin = async(req, res, next) => {
 }
 
 /**
- * Password request reset validation. The method validates the username field
+ * Password request reset validation. The method validates the email field
  * associated with the requestReset method.
  * 
  * @param res response object.
@@ -279,14 +272,14 @@ exports.isLoggedin = async(req, res, next) => {
  * @return JSON response, indicating success
  */
 exports.requestResetValidation = async(req, res, next) => {
-	// Sanitize username
-	validateUsername(req);
+	// Sanitize email
+	validateEmail(req);
 	
 	checkValidation(req, res, next);
 }
 
 /**
- * Request a password reset for a username. It assumes the username information
+ * Request a password reset for a email. It assumes the email information
  * has already been sanitized.
  * 
  * @param res response object.
@@ -294,18 +287,18 @@ exports.requestResetValidation = async(req, res, next) => {
  */
 exports.requestReset = async(req, res) => {
 	//1. Check if real user
-	const user = await User.findOne({ username: req.body.username }).catch((err) => {
+	const user = await User.findOne({ email: req.body.email }).catch((err) => {
 			const error = new Error("Database error");
 			error.status = 500;
 			throw error; // caught by errorHandler
 		});
 
-	// FIXME: Might be a security hole here by informing that no such user exists
+	// It is a security hole here by informing that no such user exists
 	if (!user) {
 		return(res.locals.globals.jsonResponse({
 			res,
-			message: "Invalid username supplied",
-			status: 400
+			message: "If the email supplied is correct, a password request token has been sent.",
+			status: 200
 		}));
 	}
 
@@ -366,7 +359,7 @@ exports.requestReset = async(req, res) => {
 		});
 
 	/* Do not send the resetToken back to a real front end as this would
-	   create a security hole. If a hacker knows a valid username,
+	   create a security hole. If a hacker knows a valid email,
 	   they could use a resetToken returned in the response to reset
 	   that user's password, thus controlling their account. It is only 
 	   sent in development mode in order to perform testing. */
@@ -493,17 +486,6 @@ validateName = (req) => {
 
 	req.sanitizeBody('lastName');
 	req.checkBody('lastName', 'You must supply a last name,').notEmpty();
-}
-
-/**
- * A method to validate the username. It does not check for username 
- * uniqueness; this must be performed seperately.
- * 
- * @param req.body.username user's username.
- */
-validateUsername = (req) => {
-	req.sanitizeBody('username');
-	req.checkBody('username', 'You must supply a user name.').notEmpty();
 }
 
 /**

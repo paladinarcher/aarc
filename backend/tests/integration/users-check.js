@@ -16,7 +16,7 @@ describe("Checking user apis", () => {
 			});
 	});
 
-	it("/users with valid login and sufficient permissions should return 200", (done) => {
+	it("users with valid login and sufficient permissions should return 200", (done) => {
 		try {
 			chai
 				.request(tools.service)
@@ -72,7 +72,7 @@ describe("Checking user apis", () => {
 		}
 	});
 
-	it("/user/:username with valid login should return 200", (done) => {
+	it("/user/:email with valid login should return 200", (done) => {
 		try {
 			chai
 				.request(tools.service)
@@ -86,7 +86,7 @@ describe("Checking user apis", () => {
 					const token = res.body.data;
 					chai
 						.request(tools.service)
-						.get(`/api/v1/user/${tools.getUserDataProperty(1, "username")}`)
+						.get(`/api/v1/user/${tools.getUserDataProperty(1, "email")}`)
 						.set("Content-Type", "application/json")
 						.send(JSON.stringify({token}))
 						.end((err, res) => {
@@ -101,7 +101,7 @@ describe("Checking user apis", () => {
 		}
 	});
 
-	it("/user/:username/roles with valid login should return 200", (done) => {
+	it("/user/:email/roles with valid login should return 200", (done) => {
 		try {
 			chai
 				.request(tools.service)
@@ -115,7 +115,7 @@ describe("Checking user apis", () => {
 					const token = res.body.data;
 					chai
 						.request(tools.service)
-						.get(`/api/v1/user/${tools.getUserDataProperty(1, "username")}/roles`)
+						.get(`/api/v1/user/${tools.getUserDataProperty(1, "email")}/roles`)
 						.set("Content-Type", "application/json")
 						.send(JSON.stringify({token}))
 						.end((err, res) => {
@@ -130,7 +130,7 @@ describe("Checking user apis", () => {
 		}
 	});
 
-	it("/user/:username/roles with invalid login should return 404", (done) => {
+	it("/user/:email/roles with invalid login should return 404", (done) => {
 		try {
 			chai
 				.request(tools.service)
@@ -144,7 +144,7 @@ describe("Checking user apis", () => {
 					const token = res.body.data;
 					chai
 						.request(tools.service)
-						.get(`/api/v1/user/${tools.getUserDataProperty(0, "username")}/roles`)
+						.get(`/api/v1/user/${tools.getUserDataProperty(0, "email")}/roles`)
 						.set("Content-Type", "application/json")
 						.send(JSON.stringify({token}))
 						.end((err, res) => {

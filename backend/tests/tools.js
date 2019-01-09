@@ -80,7 +80,6 @@ randomString = (length) => {
 user_data = [
 	{
 		email: "jane@someemailserver.com",
-		username: "janedoe", 
 		firstName: "Jane",
 		lastName: "Doe", 
 		password: "foobar",
@@ -92,8 +91,7 @@ user_data = [
 		},
 	},
 	{
-		email: "john@gmail.com", 
-		username: "johndoe", 
+		email: "john@gmail.com",  
 		firstName: "John",
 		lastName: "Doe", 
 		password: "barfoo",
@@ -106,7 +104,6 @@ user_data = [
 	},
 	{
 		email: "joe@compuserve.com",
-		username: "joe", 
 		firstName: "Jane",
 		lastName: "Schmoe", 
 		password: "foobar",
@@ -121,11 +118,11 @@ user_data = [
 
 registration_400_data = [
 	// Missing password_confirm
-	JSON.stringify((({email, username, firstName, lastName, password, roles, demographics}) => 
-		({email, username, firstName, lastName, password, roles, demographics}))(user_data[0])),
-	// Missing username and password_confirm
 	JSON.stringify((({email, firstName, lastName, password, roles, demographics}) => 
-		({email, firstName, lastName, password, roles, demographics}))(user_data[1])),
+		({email, firstName, lastName, password, roles, demographics}))(user_data[0])),
+	// Missing email and password_confirm
+	JSON.stringify((({firstName, lastName, password, roles, demographics}) => 
+		({firstName, lastName, password, roles, demographics}))(user_data[1])),
 ];
 
 registration_200_data = [
@@ -137,20 +134,20 @@ registration_200_data = [
 login_400_data = [
 	// Missing password
 	JSON.stringify({
-		username: user_data[0].username,
+		email: user_data[0].email,
 	}),
-	// Missing username
+	// Missing email
 	JSON.stringify({
 		password: user_data[0].password,
 	}),
-	// Invalid username
+	// Invalid email
 	JSON.stringify({
-		username: "wrongusername",
+		email: "wrongemail",
 		password: user_data[0].password,
 	}),
-	// Valid username, wrong password
+	// Valid email, wrong password
 	JSON.stringify({
-		username: user_data[0].username,
+		email: user_data[0].email,
 		password: "wrongpassword",
 	})
 
@@ -158,28 +155,28 @@ login_400_data = [
 
 login_200_data = [
 	JSON.stringify({
-		username: user_data[0].username,
+		email: user_data[0].email,
 		password: user_data[0].password,
 	}),
 	JSON.stringify({
-		username: user_data[1].username,
+		email: user_data[1].email,
 		password: user_data[1].password,
 	}),
 	JSON.stringify({
-		username: user_data[2].username,
+		email: user_data[2].email,
 		password: user_data[2].password,
 	}),
 ];
 
 requestreset_400_data = [
 	JSON.stringify({
-		username: "wrongusername",
+		email: "wrongemail",
 	}),
 ];
 
 requestreset_200_data = [
 	JSON.stringify({
-		username: user_data[0].username,
+		email: user_data[0].email,
 	}),
 	JSON.stringify({
 		password: "anewpassword",

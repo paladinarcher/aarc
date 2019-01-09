@@ -6,12 +6,6 @@ const mongodbErrorHandler = require('mongoose-mongodb-errors');
 // By default, monogodb is strict and requires a schema
 // FIXME: This has been created by my own inference of the padawan DB
 const userSchema = new mongoose.Schema({
-	username: {
-		type: String,
-		trim: true,
-		unique: true,
-		required: 'username required',
-	},
 	email: {
 		type: String,
 		trim: true,

@@ -37,7 +37,7 @@ describe("Checking registration api", () => {
 		}
 	});
 
-	it("Missing username and password_confirm should return 422", (done) => {
+	it("Missing email and password_confirm should return 422", (done) => {
 		try {
 			chai
 				.request(tools.service)
