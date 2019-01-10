@@ -1,0 +1,17 @@
+version: '3'
+services:
+    auth:
+        build: .
+        ports:
+            - "2345:8888"
+        links:
+            - auth_database
+        environment:
+            - MONGO_URL=mongodb://auth_database:27017/auth
+    auth_database:
+        image: mongo:3.4.1
+        restart: always
+        ports:
+            - "27217:27017"
+        volumes:
+            - "/home/ec2-user/auth_data:/data/db"
