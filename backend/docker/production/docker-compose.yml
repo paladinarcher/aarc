@@ -3,7 +3,7 @@ services:
     auth:
         build: .
         ports:
-            - "80:8888"
+            - "2345:8888"
         links:
             - auth_database
         environment:

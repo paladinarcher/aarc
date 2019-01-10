@@ -1,14 +1,18 @@
 {
-  "name": "nodejs-developerlevel-api",
+  "name": "developerlevel-authentication-api",
   "version": "1.0.0",
-  "description": "NodeJS API for DeveloperLevel",
+  "description": "Authentication API for DeveloperLevel",
+  "repository": {
+	"type" : "git",
+	"url" : "https://github.com/paladinarcher/aarc"
+  },
   "engines": {
     "node": ">= 7.6.0"
   },
   "scripts": {
-    "prod": "node ./start.js",
+    "start": "node ./start.js",
     "dev": "nodemon ./start.js --ignore public node_modules/",
-    "tests": "node tests/run"
+    "test": "node tests/run"
   },
   "author": "",
   "license": "ISC",
