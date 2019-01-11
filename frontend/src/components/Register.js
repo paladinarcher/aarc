@@ -8,7 +8,6 @@ class Register extends Component {
         super()
 
         this.state = {
-            username: "",
             password: "",
             password_confirm: "",
             firstName: "",
@@ -26,8 +25,7 @@ class Register extends Component {
     async registerUser() {
         try {
             let body = {
-                email:this.state.username,
-                username:this.state.username,
+                email:this.state.email,
                 password:this.state.password,
                 password_confirm:this.state.password_confirm,
                 firstName:this.state.firstName,
@@ -63,12 +61,12 @@ class Register extends Component {
                         <fieldset>
 
                             <div className="at-input form-group">
-                                <label className="control-label" htmlFor="username">
+                                <label className="control-label" htmlFor="email">
                                     Email
                                 </label>
-                                <input type="email" className="form-control" id="username" name="username"
-                                    autoCapitalize="none" autoCorrect="off" autoComplete="username email"
-                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.username}
+                                <input type="email" className="form-control" id="email" name="email"
+                                    autoCapitalize="none" autoCorrect="off" autoComplete="email email"
+                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.email}
                                     ></input>
 
                                 <span className="help-block hide"></span>

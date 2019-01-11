@@ -7,13 +7,13 @@ class Forgot extends Component {
         super()
 
         this.state = {
-            username: ""
+            email: ""
         }
     }
 
     updateInfo(updatedInfo,target) {
         this.setState({
-            target:updatedInfo
+            [target]:updatedInfo
         })
     }
 
@@ -38,9 +38,9 @@ class Forgot extends Component {
                                 <label className="control-label" htmlFor="at-field-email">
                                     Email
                                 </label>
-                                <input type="email" className="form-control" id="username" name="username"
+                                <input type="email" className="form-control" id="email" name="email"
                                 autoCapitalize="none" autoCorrect="off"
-                                onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.username}
+                                onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.email}
                                 ></input>
 
                                 <span className="help-block hide"></span>
