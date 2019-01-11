@@ -8,7 +8,7 @@ class Login extends Component {
         super()
 
         this.state = {
-            username: "",
+            email: "",
             password: ""
         }
     }
@@ -22,11 +22,12 @@ class Login extends Component {
     async loginUser() {
         try {
             let data = {
-            username:this.state.username,
+            email:this.state.email,
             password:this.state.password
             }
             await axios.post('http://localhost:8888/api/v1/login',data)
-            window.location.href = "http://app.developerlevel.com/dashboard";
+            .then(window.location.href = "http://app.developerlevel.com/dashboard")
+            .catch(console.log("Error in login.js"));
         } catch(e) {
             alert ("Invalid login")
         }
@@ -49,12 +50,12 @@ class Login extends Component {
                         <fieldset>
 
                             <div className="at-input form-group">
-                                <label className="control-label" htmlFor="username">
+                                <label className="control-label" htmlFor="email">
                                     Email
                                 </label>
-                                <input type="email" className="form-control" id="username" name="username"
+                                <input type="email" className="form-control" id="email" name="email"
                                     autoCapitalize="none" autoCorrect="off" 
-                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.username}></input>
+                                    onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.email}></input>
 
                                 <span className="help-block hide"></span>
                             </div>
