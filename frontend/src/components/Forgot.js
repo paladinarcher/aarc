@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import '../App.css';
+import axios from 'axios';
 
 class Forgot extends Component {
     constructor(){
@@ -8,6 +9,20 @@ class Forgot extends Component {
 
         this.state = {
             email: ""
+        }
+    }
+
+    async resetPassword() {
+        try {
+            let data = {
+                email:this.state.email
+            }
+            console.log(data)
+            await axios.post('http://localhost:8888/api/v1/requestreset',data)
+              .catch((res) => {console.log("############## endpoint failed",res.data)})
+              window.location.replace = "http://localhost:3006/";
+        } catch(e) {
+            console.log("resetPassword failed (Forgot.js line 24)")
         }
     }
 
@@ -29,8 +44,7 @@ class Forgot extends Component {
           </div>
 
           <div className="at-pwd-form">
-                    <form id="at-pwd-form" noValidate="" 
-                     action="http://localhost:3001/users/forgot" method="POST">
+                    <form id="at-pwd-form" noValidate="" >
                         <fieldset>
 
 
@@ -47,7 +61,7 @@ class Forgot extends Component {
                             </div>
 
                             <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" 
-                            id="at-btn">
+                            id="at-btn"  onClick={() => this.resetPassword()}>
                                 Email Reset Link
                             </button>
                         </fieldset>
