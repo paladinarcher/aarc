@@ -208,10 +208,10 @@ exports.login = async (req, res) => {
 	});
 	
 	//5. Set the token into a cookie
-	res.cookie('token', token, {
-		httpOnly: false, // Might wish to consider if this creates a security issue
-		maxAge: res.locals.globals.tokenTimeout,
-	});
+	// res.cookie('token', token, {
+	// 	httpOnly: false, // Might wish to consider if this creates a security issue
+	// 	maxAge: res.locals.globals.tokenTimeout,
+	// });
 
 	//6. Success; the token is also returned here
 	return(res.locals.globals.jsonResponse({
@@ -342,21 +342,27 @@ exports.requestReset = async(req, res) => {
 		});
 
 	//5. send reset token email
+	const message = makeEmail(`Your password reset token is here!\n\n
+		<a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">
+			Click here to reset
+		</a>`);
+		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 	const mailRes = await transport.sendMail({
 			from: '<no-reply>@codedeveloper.com',
 			to: user.email,
 			subject: 'Your password reset token',
 			// FIXME: use a templating engine
-			html: makeEmail(`Your password reset token is here!
-									\n\n
-									<a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">
-										Click here to reset
-								</a>`)
+			html: message
 		}).catch((err) => {
 			const error = new Error("Error while sending reset email");
 			error.status = 501;
 			throw error; // caught by errorHandler
 		});
+		
+		
+		// .on('error', (e) => {
+		// 	console.error(`Got error: ${e.message}`)
+		// });
 
 	/* Do not send the resetToken back to a real front end as this would
 	   create a security hole. If a hacker knows a valid email,

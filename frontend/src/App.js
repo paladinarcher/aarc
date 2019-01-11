@@ -3,6 +3,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Forgot from './components/Forgot';
 import Register from './components/Register'
+import Reset from './components/Reset'
 import './App.css';
 
 class App extends Component {
@@ -51,6 +52,7 @@ class App extends Component {
                     <Route path="/" component={Login} exact />
                     <Route path="/forgot" exact component={Forgot} />
                     <Route path="/register" component={Register} />
+                    <Route path="/reset" component={Reset} />
                 </Switch>
                 </HashRouter>
             </div> 

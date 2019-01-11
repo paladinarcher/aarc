@@ -17,13 +17,15 @@ class Forgot extends Component {
             let data = {
                 email:this.state.email
             }
-            console.log(data)
             await axios.post('http://localhost:8888/api/v1/requestreset',data)
-              .catch((res) => {console.log("############## endpoint failed",res.data)})
-              window.location.replace = "http://localhost:3006/";
+            .catch('error', (e) => {
+                console.error(`### Forgot.js, line 21: ${e.message}`)
+            });
+            console.log("### HERE: ",data)
         } catch(e) {
-            console.log("resetPassword failed (Forgot.js line 24)")
+            console.log("resetPassword failed (Forgot.js line 24)",e)
         }
+        window.location = "http://localhost:3006/";
     }
 
     updateInfo(updatedInfo,target) {
