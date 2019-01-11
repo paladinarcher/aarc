@@ -26,8 +26,8 @@ class Login extends Component {
             password:this.state.password
             }
             await axios.post('http://localhost:8888/api/v1/login',data)
-            .then(window.location.href = "http://app.developerlevel.com/dashboard")
-            .catch(console.log("Error in login.js"));
+            .catch(() => console.log("login.js line 28"));
+            window.location.replace = "http://app.developerlevel.com/dashboard";
         } catch(e) {
             alert ("Invalid login")
         }
