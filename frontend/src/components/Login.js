@@ -46,7 +46,7 @@ class Login extends Component {
                 </div>
 
                 <div className="at-pwd-form">
-                    <form id="at-pwd-form" noValidate="" >
+                    <form method="POST" id="at-pwd-form" noValidate="" >
                         <fieldset>
 
                             <div className="at-input form-group">
@@ -83,7 +83,7 @@ class Login extends Component {
                                 </p>
                             </div>
 
-                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" 
+                            <button className="at-btn submit btn btn-lg btn-block btn-default" 
                             id="at-btn" onClick={() => this.loginUser()}>
                                 Sign In
                             </button>

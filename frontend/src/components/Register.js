@@ -56,7 +56,7 @@ class Register extends Component {
                 </div>
 
                 <div className="at-pwd-form">
-                    <form id="at-pwd-form" >
+                    <form method="POST" id="at-pwd-form" >
 
                         <fieldset>
 

@@ -3,22 +3,18 @@ import React, { Component } from 'react';
 import '../App.css';
 import axios from 'axios';
 
-class Register extends Component {
-    constructor({props}){
-        super({props})
- 
+class Reset extends Component {
+    constructor(){
+        super()
         this.state = {
             password: "",
-            password_confirm: "",
-            token:props.params.resetToken
+            password_confirm: ""
         }
-        console.log("Props",this.state.token)
     }
     
     componentDidMount() {
-        console.log("#### HERE #####",this.routeParam)
-        const { token } = this.props.match.params
-        console.log("### TOKEN =",this.routeParam)
+        const token = this.props.match.params.resetToken
+        if (token) console.log("#### token acquired #####")
     }
 
     async resetPass() {
@@ -29,11 +25,11 @@ class Register extends Component {
             }
             await axios.post(`http://localhost:8888/api/v1/reset?resetToken=${this.routeParam}`,body)
               .then(res => {
-                window.location.href = "http://app.developerlevel.com/dashboard";
+               window.location.href = "http://app.developerlevel.com/dashboard";
               })
         } catch(e) {
             // console.log("################### ERROR ###############\n",e)
-            alert ("Leave something blank?")
+            console.log ("### resetPass catch =",e)
         }
     }
 
@@ -49,16 +45,15 @@ class Register extends Component {
 
         // <!-- registration form -->
         <div className="col-sm-5 col-sm-pull-6 align-middle atform">
-       {console.log("### RESET.JS ",this.routeParam)} 
 
             <div className="at-form">
 
                 <div className="at-title">
-                    <h3>Create an Account</h3>
+                    <h3>Enter a new password</h3>
                 </div>
 
                 <div className="at-pwd-form">
-                    <form id="at-pwd-form" >
+                    <form method="POST" id="at-pwd-form" >
 
                         <fieldset>
 
@@ -68,7 +63,7 @@ class Register extends Component {
                                     New Password
                                 </label>
                                 <input type="password" className="form-control" id="password" name="password"
-                                    autoCapitalize="none" autoCorrect="off" autoComplete="new-password"
+                                    autoCapitalize="none" autoCorrect="off" 
                                     onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.password}
                                     ></input>
 
@@ -84,14 +79,12 @@ class Register extends Component {
                                     autoCapitalize="none" 
                                     onChange={(e) => this.updateInfo(e.target.value,e.target.id)} value= {this.state.password_confirm}
                                     ></input>
-                                <span id="confirmMessage" className="confirmMessage" style={{float:'right'}}></span>
-                                <span className="help-block hide"></span>
                             </div>
 
 
                             <button className="at-btn submit btn btn-lg btn-block btn-default" 
                             id="at-btn" onClick={() => this.resetPass()}>
-                                Register Now!
+                                Make it so!
                             </button>
                         </fieldset>
                     </form>
@@ -116,4 +109,4 @@ class Register extends Component {
     }
   }
   
-  export default Register;
+  export default Reset;

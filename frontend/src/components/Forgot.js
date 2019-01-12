@@ -62,7 +62,7 @@ class Forgot extends Component {
                                 <span className="help-block hide"></span>
                             </div>
 
-                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" 
+                            <button className="at-btn submit btn btn-lg btn-block btn-default" 
                             id="at-btn"  onClick={() => this.resetPassword()}>
                                 Email Reset Link
                             </button>
