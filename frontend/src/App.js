@@ -52,7 +52,7 @@ class App extends Component {
                     <Route path="/" component={Login} exact />
                     <Route path="/forgot" exact component={Forgot} />
                     <Route path="/register" component={Register} />
-                    <Route path="/reset" component={Reset} />
+                    <Route path="/reset:resetToken" component={Reset} />
                 </Switch>
                 </HashRouter>
             </div> 
