@@ -8,12 +8,14 @@ class Reset extends Component {
         super()
         this.state = {
             password: "",
-            password_confirm: ""
+            password_confirm: "",
+            token: ""
         }
     }
     
     componentDidMount() {
-        const token = this.props.match.params.resetToken
+        const token = this.props.match.params.resetToken;
+        this.setState({token})
         if (token) console.log("#### token acquired #####")
     }
 
@@ -23,7 +25,7 @@ class Reset extends Component {
                 password:this.state.password,
                 password_confirm:this.state.password_confirm
             }
-            await axios.post(`http://localhost:8888/api/v1/reset?resetToken=${this.routeParam}`,body)
+            await axios.post(`http://localhost:8888/api/v1/reset?resetToken=${this.state.token}`,body)
               .then(res => {
                window.location.href = "http://app.developerlevel.com/dashboard";
               })

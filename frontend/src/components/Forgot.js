@@ -21,9 +21,9 @@ class Forgot extends Component {
             .catch('error', (e) => {
                 console.error(`### Forgot.js, line 21: ${e.message}`)
             });
-            console.log("### HERE: ",data)
+           alert ("Please check your email")
         } catch(e) {
-            console.log("resetPassword failed (Forgot.js line 24)",e)
+            console.log("resetPassword failed (Forgot.js line 25)",e)
         }
         window.location = "http://localhost:3006/";
     }
