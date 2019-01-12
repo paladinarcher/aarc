@@ -21,9 +21,9 @@ class Forgot extends Component {
             .catch('error', (e) => {
                 console.error(`### Forgot.js, line 21: ${e.message}`)
             });
-            console.log("### HERE: ",data)
+           alert ("Please check your email")
         } catch(e) {
-            console.log("resetPassword failed (Forgot.js line 24)",e)
+            console.log("resetPassword failed (Forgot.js line 25)",e)
         }
         window.location = "http://localhost:3006/";
     }
@@ -62,7 +62,7 @@ class Forgot extends Component {
                                 <span className="help-block hide"></span>
                             </div>
 
-                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" 
+                            <button className="at-btn submit btn btn-lg btn-block btn-default" 
                             id="at-btn"  onClick={() => this.resetPassword()}>
                                 Email Reset Link
                             </button>

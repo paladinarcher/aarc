@@ -20,6 +20,7 @@ class Login extends Component {
     }
     
     async loginUser() {
+
         try {
             let data = {
             email:this.state.email,
@@ -27,9 +28,9 @@ class Login extends Component {
             }
             await axios.post('http://localhost:8888/api/v1/login',data)
             .catch(() => console.log("login.js line 28"));
-            window.location.replace = "http://app.developerlevel.com/dashboard";
+            window.location = "http://app.developerlevel.com/dashboard";
         } catch(e) {
-            alert ("Invalid login")
+            alert ("'try' on Login.js line 25",e)
         }
     }
 
@@ -83,7 +84,7 @@ class Login extends Component {
                                 </p>
                             </div>
 
-                            <button type="submit" className="at-btn submit btn btn-lg btn-block btn-default" 
+                            <button className="at-btn submit btn btn-lg btn-block btn-default" 
                             id="at-btn" onClick={() => this.loginUser()}>
                                 Sign In
                             </button>
