@@ -27,6 +27,7 @@ class Login extends Component {
             password:this.state.password
             }
             await axios.post('http://localhost:8888/api/v1/login',data)
+            .then((res) => alert("Here's your token!", res.data))
             .catch((err) => {
                 alert("No such user/pass combo.",err);
             })
