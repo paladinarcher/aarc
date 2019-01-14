@@ -18,14 +18,15 @@ class Forgot extends Component {
                 email:this.state.email
             }
             await axios.post('http://localhost:8888/api/v1/requestreset',data)
-            .catch('error', (e) => {
-                console.error(`### Forgot.js, line 21: ${e.message}`)
-            });
-           alert ("Please check your email")
-        } catch(e) {
-            console.log("resetPassword failed (Forgot.js line 25)",e)
+                .catch(() => {
+                    console.error(`### Forgot.js, line 21`);
+                });
+            alert ("Please check your email");
+            window.location.href = "http://localhost:3006/";
+            //   window.location.href = "http://app.developerlevel.com/signin";
+         } catch(e) {
+            console.log("### resetPassword failed (Forgot.js line 25)",e)
         }
-        window.location = "http://localhost:3006/";
     }
 
     updateInfo(updatedInfo,target) {
@@ -63,7 +64,7 @@ class Forgot extends Component {
                             </div>
 
                             <button className="at-btn submit btn btn-lg btn-block btn-default" 
-                            id="at-btn"  onClick={() => this.resetPassword()}>
+                            id="at-btn" type="button" onClick={() => this.resetPassword()}>
                                 Email Reset Link
                             </button>
                         </fieldset>

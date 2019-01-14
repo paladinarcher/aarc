@@ -27,10 +27,12 @@ class Login extends Component {
             password:this.state.password
             }
             await axios.post('http://localhost:8888/api/v1/login',data)
-            .catch(() => console.log("login.js line 28"));
+            .catch((err) => {
+                alert("No such user/pass combo.",err);
+            })
             window.location = "http://app.developerlevel.com/dashboard";
         } catch(e) {
-            alert ("'try' on Login.js line 25",e)
+            console.log ("### ERROR: 'try' on Login.js line 25",e)
         }
     }
 
@@ -47,7 +49,8 @@ class Login extends Component {
                 </div>
 
                 <div className="at-pwd-form">
-                    <form id="at-pwd-form" noValidate="" >
+                    <form onSubmit={() => this.loginUser()} id="at-pwd-form" noValidate="" >
+                    {/* //method="post"  */}
                         <fieldset>
 
                             <div className="at-input form-group">
@@ -85,7 +88,7 @@ class Login extends Component {
                             </div>
 
                             <button className="at-btn submit btn btn-lg btn-block btn-default" 
-                            id="at-btn" onClick={() => this.loginUser()}>
+                            id="at-btn" type="button" onClick={() => this.loginUser()}>
                                 Sign In
                             </button>
                         </fieldset>
