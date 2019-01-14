@@ -32,11 +32,10 @@ class Register extends Component {
                 lastName:this.state.lastName
             }
             await axios.post('http://localhost:8888/api/v1/register',body)
-              .then(res => {
-                window.location.href = "http://app.developerlevel.com/dashboard";
-              })
+                .catch(() => console.log("### Error: Line 34 in Register.js"));
+            window.location.href = "http://localhost:3006/";
+            //   window.location.href = "http://app.developerlevel.com/signin";
         } catch(e) {
-            // console.log("################### ERROR ###############\n",e)
             alert ("Leave something blank?")
         }
     }
@@ -126,7 +125,7 @@ class Register extends Component {
 
 
                             <button className="at-btn submit btn btn-lg btn-block btn-default" 
-                            id="at-btn" onClick={() => this.registerUser()}>
+                            id="at-btn" type="button" onClick={() => this.registerUser()}>
                                 Register Now!
                             </button>
                         </fieldset>

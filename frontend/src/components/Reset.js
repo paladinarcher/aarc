@@ -26,12 +26,14 @@ class Reset extends Component {
                 password_confirm:this.state.password_confirm
             }
             await axios.post(`http://localhost:8888/api/v1/reset?resetToken=${this.state.token}`,body)
-              .then(res => {
-               window.location.href = "http://app.developerlevel.com/dashboard";
-              })
+                .catch(() => console.log("### error in Reset.js, line 28 "));
+              
+            // window.location.href = "http://app.developerlevel.com/dashboard";
+            //    window.location.href = "http://app.developerlevel.com/dashboard";
+            alert("Password reset!")
         } catch(e) {
             // console.log("################### ERROR ###############\n",e)
-            console.log ("### resetPass catch =",e)
+            console.log ("### ERROR: Reset.js, line 34: resetPass catch =",e)
         }
     }
 
@@ -55,7 +57,7 @@ class Reset extends Component {
                 </div>
 
                 <div className="at-pwd-form">
-                    <form method="POST" id="at-pwd-form" >
+                    <section id="at-pwd-form" >
 
                         <fieldset>
 
@@ -89,7 +91,7 @@ class Reset extends Component {
                                 Make it so!
                             </button>
                         </fieldset>
-                    </form>
+                    </section>
                 </div>
 
 
