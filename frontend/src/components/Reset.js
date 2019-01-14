@@ -27,12 +27,10 @@ class Reset extends Component {
             }
             await axios.post(`http://localhost:8888/api/v1/reset?resetToken=${this.state.token}`,body)
                 .catch(() => console.log("### error in Reset.js, line 28 "));
-              
-            // window.location.href = "http://app.developerlevel.com/dashboard";
-            //    window.location.href = "http://app.developerlevel.com/dashboard";
-            alert("Password reset!")
-        } catch(e) {
-            // console.log("################### ERROR ###############\n",e)
+                alert("Password reset!")
+                window.location.href = "http://localhost:3006/";
+                //   window.location.href = "http://app.developerlevel.com/signin";
+            } catch(e) {
             console.log ("### ERROR: Reset.js, line 34: resetPass catch =",e)
         }
     }

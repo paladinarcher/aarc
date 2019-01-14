@@ -22,11 +22,11 @@ class Forgot extends Component {
                     console.error(`### Forgot.js, line 21`);
                 });
             alert ("Please check your email");
-            window.location = "http://localhost:3006/#/";
-        } catch(e) {
-            console.log("resetPassword failed (Forgot.js line 25)",e)
+            window.location.href = "http://localhost:3006/";
+            //   window.location.href = "http://app.developerlevel.com/signin";
+         } catch(e) {
+            console.log("### resetPassword failed (Forgot.js line 25)",e)
         }
-        window.location = "http://localhost:3006/";
     }
 
     updateInfo(updatedInfo,target) {

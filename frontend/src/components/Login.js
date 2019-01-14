@@ -28,15 +28,12 @@ class Login extends Component {
             }
             await axios.post('http://localhost:8888/api/v1/login',data)
             .catch((err) => {
-                alert("No such user.",err);
-             //   window.location = "http://localhost:3006/#/register";
+                alert("No such user/pass combo.",err);
             })
+            window.location = "http://app.developerlevel.com/dashboard";
         } catch(e) {
-            alert ("### ERROR: 'try' on Login.js line 25",e)
+            console.log ("### ERROR: 'try' on Login.js line 25",e)
         }
-        // window.location = "http://localhost:3006/#/";
-        // window.location = "http://app.developerlevel.com/dashboard";
-
     }
 
   render() {
