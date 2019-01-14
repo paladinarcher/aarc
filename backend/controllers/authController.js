@@ -208,10 +208,10 @@ exports.login = async (req, res) => {
 	});
 	
 	//5. Set the token into a cookie
-	// res.cookie('token', token, {
-	// 	httpOnly: false, // Might wish to consider if this creates a security issue
-	// 	maxAge: res.locals.globals.tokenTimeout,
-	// });
+	res.cookie('token', token, {
+		httpOnly: false, // Might wish to consider if this creates a security issue
+		maxAge: res.locals.globals.tokenTimeout,
+	});
 
 	//6. Success; the token is also returned here
 	return(res.locals.globals.jsonResponse({
