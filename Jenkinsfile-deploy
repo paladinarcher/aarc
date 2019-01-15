@@ -27,9 +27,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying... '
-                sh "cd src && cp client/app/scripts/config-dev.js client/app/scripts/config.js && tar -czf client.tar.gz client/ && mv client.tar.gz .."
-                sh "scp -o StrictHostKeyChecking=no -i /home/ec2-user/.ssh/wjInstance.pem client.tar.gz ec2-user@app.developerlevel.com:/home/ec2-user/src/InnoVet-VAOS/deploy"
-                sh "ssh -o StrictHostKeyChecking=no -i /home/ec2-user/.ssh/wjInstance.pem ec2-user@app.developerlevel.com /home/ec2-user/src/InnoVet-VAOS/pipeline/dc-rebuild-up.sh"
+                sh "cd src//aarc && tar -czf aarc.tar.gz --files-from includesfile && mv aarc.tar.gz ../.."
+                sh "scp -o StrictHostKeyChecking=no -i /home/ec2-user/.ssh/wjInstance.pem client.tar.gz ec2-user@app.developerlevel.com:/home/ec2-user/src/aarc"
+                sh "ssh -o StrictHostKeyChecking=no -i /home/ec2-user/.ssh/wjInstance.pem ec2-user@app.developerlevel.com /home/ec2-user/src/aarc/docker-build.sh"
             }
         }
     }
