@@ -1,7 +1,7 @@
 FROM node:8.15.0-alpine
 LABEL maintainer "support@paladinarcher.com"
 
-ENV PACKAGES bash mongodb
+ENV PACKAGES bash mongodb openssh-client
 
 RUN apk update && apk upgrade && \
 	apk add $PACKAGES --no-cache && \
@@ -9,7 +9,3 @@ RUN apk update && apk upgrade && \
 
 RUN mkdir -p /data/db && \
 	chown -R mongodb /data/db
-
-EXPOSE 27017
-
-CMD ["sh", "-c", "/usr/bin/mongod"]
