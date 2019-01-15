@@ -1,0 +1,36 @@
+#!/usr/bin/env groovy
+pipeline {
+    agent {
+        dockerfile {
+            filename "docker/jenkins/Dockerfile"
+            args "--entrypoint=''"
+        }
+    }
+    environment {
+        LC_ALL='en_US.UTF-8'
+        LANG='en_US.UTF-8'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh "cd src/client && npm i"
+                sh 'sleep 10s'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Run tests"
+                //FIXME
+                sh 'sleep 10s'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying... '
+                sh "cd src/aarc && tar -czf aarc.tar.gz --files-from includesfile && mv aarc.tar.gz ../.."
+                sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem aarc.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc"
+                sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com /home/ec2-user/src/aarc/docker-build.sh"
+            }
+        }
+    }
+}
