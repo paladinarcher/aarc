@@ -7,7 +7,7 @@ services:
         links:
             - auth_database
         environment:
-            - MONGO_URL=mongodb://auth_database:27017/auth
+            - DATABASE=mongodb://auth_database:27017/auth
     auth_database:
         image: mongo:3.4.1
         restart: always

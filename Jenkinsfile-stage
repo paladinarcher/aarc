@@ -1,0 +1,36 @@
+#!/usr/bin/env groovy
+pipeline {
+    agent {
+        dockerfile {
+            filename "docker/jenkins/Dockerfile"
+            args "--entrypoint=''"
+        }
+    }
+    environment {
+        LC_ALL='en_US.UTF-8'
+        LANG='en_US.UTF-8'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh "cd src/client && npm i"
+                sh 'sleep 10s'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Run tests"
+                //FIXME
+                sh 'sleep 10s'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying... '
+                sh "cd src && cp client/app/scripts/config-dev.js client/app/scripts/config.js && tar -czf client.tar.gz client/ && mv client.tar.gz .."
+                sh "scp -o StrictHostKeyChecking=no -i /home/ec2-user/.ssh/rigel-alpha.pem client.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/InnoVet-VAOS/deploy"
+                sh "ssh -o StrictHostKeyChecking=no -i /home/ec2-user/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com /home/ec2-user/src/InnoVet-VAOS/pipeline/dc-rebuild-up.sh"
+            }
+        }
+    }
+}
