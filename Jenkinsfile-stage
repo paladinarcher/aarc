@@ -27,6 +27,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying... '
+				sh "create_includes.sh"
 				sh "ls"
                 sh "tar -czf aarc.tar.gz --files-from includesfile && mv aarc.tar.gz ../.."
                 sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem aarc.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/backend/docker"
