@@ -32,7 +32,7 @@ pipeline {
 				sh "source ./create_includes.sh"
                 sh "tar -czf aarc.tar.gz --files-from includesfile"
                 sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/backend/docker"
-                sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com /home/ec2-user/src/aarc/docker-build.sh"
+                sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com /home/src/aarc/docker-build.sh"
             }
         }
     }
