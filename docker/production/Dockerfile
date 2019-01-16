@@ -7,5 +7,5 @@ ARG AUTH_PATH="/usr/src/auth"
 RUN mkdir -p ${AUTH_PATH}
 WORKDIR ${AUTH_PATH}
 ADD ./aarc.tar.gz ${AUTH_PATH}
-WORKDIR ${AUTH_PATH}/aarc/backend
+WORKDIR ${AUTH_PATH}/backend
 CMD ["npm", "run", "start"]
