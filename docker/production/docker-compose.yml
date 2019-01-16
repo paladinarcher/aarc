@@ -1,7 +1,7 @@
 version: '3'
-container_name: authentication_service
 services:
     auth:
+        container_name: aarc_REST_api
         build: .
         ports:
             - "2345:8888"
@@ -10,6 +10,7 @@ services:
         environment:
             - DATABASE=mongodb://auth_database:27017/auth
     auth_database:
+        container_name: aarc_db
         image: mongo:3.4.1
         restart: always
         ports:
