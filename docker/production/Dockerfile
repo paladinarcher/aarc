@@ -8,4 +8,5 @@ RUN mkdir -p ${AUTH_PATH}
 WORKDIR ${AUTH_PATH}
 ADD ./aarc.tar.gz ${AUTH_PATH}
 WORKDIR ${AUTH_PATH}/backend
+COPY ./variables.env .
 CMD ["npm", "run", "start"]
