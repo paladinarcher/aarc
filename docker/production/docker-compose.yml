@@ -1,4 +1,5 @@
 version: '3'
+container_name: authentication_service
 services:
     auth:
         build: .
