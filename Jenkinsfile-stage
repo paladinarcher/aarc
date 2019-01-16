@@ -31,10 +31,9 @@ pipeline {
 				sh "ls"
 				sh "source ./create_includes.sh"
                 sh "tar -czf aarc.tar.gz --files-from includesfile"
-				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/jenkins/docker-build.sh ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc"
-				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/production/* ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/production"
-                sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/production"
-				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com chmod 755 /home/ec2-user/src/aarc/docker-build.sh"
+				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com rm -fr /home/ec2-user/src/aarc/*"
+				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/* ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc"
+                sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/docker/production"
                 sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com source /home/ec2-user/src/aarc/docker-build.sh"
             }
         }
