@@ -11,9 +11,9 @@ pipeline {
         LANG='en_US.UTF-8'
     }
     stages {
-        stage('Build') {
+        stage('Build Backend') {
             steps {
-                sh "cd src/client && npm i"
+                sh "cd backend && npm i"
                 sh 'sleep 10s'
             }
         }
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 echo 'Deploying... '
                 sh "cd src/aarc && tar -czf aarc.tar.gz --files-from includesfile && mv aarc.tar.gz ../.."
-                sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem aarc.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc"
+                sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem aarc.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/backend/docker"
                 sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com /home/ec2-user/src/aarc/docker-build.sh"
             }
         }
