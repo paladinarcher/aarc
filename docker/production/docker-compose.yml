@@ -1,19 +1,30 @@
 version: '3'
 services:
-    auth:
-        container_name: aarc_REST_api
-        build: .
+    aarc_api:
+        container_name: aarc_api
+        build: api
         ports:
-            - "2345:8888"
+            - "2345:${API_INTERNAL_PORT}"
         links:
-            - auth_database
+            - aarc_database
+            - aarc_frontend
         environment:
-            - DATABASE=mongodb://auth_database:27017/auth
-    auth_database:
+            - DATABASE=mongodb://aarc_database:${DATABASE_INTERNAL_PORT}/auth
+            - PORT=${API_INTERNAL_PORT}
+    aarc_frontend:
+        build:
+            context: frontend
+        ports:
+            - "80:${FRONTEND_INTERNAL_PORT}"
+        links:
+            - aarc_api
+        environment:
+            - PORT=${FRONTEND_INTERNAL_PORT}
+    aarc_database:
         container_name: aarc_db
         image: mongo:3.4.1
         restart: always
         ports:
-            - "27217:27017"
+            - "27217:${DATABASE_INTERNAL_PORT}"
         volumes:
             - "/home/ec2-user/auth_data:/data/db"

@@ -1,42 +1,49 @@
 #!/usr/bin/env groovy
 pipeline {
-    agent {
-        dockerfile {
-            filename "docker/jenkins/Dockerfile"
-            args "--entrypoint=''"
-        }
-    }
-    environment {
-        LC_ALL='en_US.UTF-8'
-        LANG='en_US.UTF-8'
-    }
-    stages {
-        stage('Build Backend') {
-            steps {
-				sh "ls"
-                sh "cd backend && npm i"
-                sh 'sleep 10s'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo "Run tests"
-                //FIXME
-                sh 'sleep 10s'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying... '
-				sh "ls"
+	agent {
+		dockerfile {
+			filename "docker/jenkins/Dockerfile"
+			args "--entrypoint=''"
+		}
+	}
+	environment {
+		LC_ALL='en_US.UTF-8'
+		LANG='en_US.UTF-8'
+	}
+	stages {
+		stage('Build API') {
+			steps {
+				sh "cd api && npm i"
+				sh 'sleep 10s'
+			}
+		}
+		stage('Build Frontend') {
+			steps {
+				sh "cd frontend && npm i"
+				sh "npm build"
+				sh 'sleep 10s'
+			}
+		}
+		stage('Test') {
+			steps {
+				echo "Run tests"
+				//FIXME
+				sh 'sleep 10s'
+			}
+		}
+		stage('Deploy') {
+			steps {
+				echo 'Deploying... '
 				sh "source ./create_includes.sh"
-                sh "tar -czf aarc.tar.gz --files-from includesfile"
+				sh "tar -czf aarc.api.tar.gz --files-from includesfile-api"
+				sh "tar -czf aarc.frontend.tar.gz --files-from includesfile-frontend"
 				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com rm -fr /home/ec2-user/src/aarc/*"
 				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/* ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc"
 				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem /home/src/aarc/variables.env ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/production/"
-                sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/production/"
-                sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com source /home/ec2-user/src/aarc/jenkins/docker-build.sh"
-            }
-        }
-    }
+				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.api.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/production/api/"
+				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.frontend.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/production/frontend/"
+				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com source /home/ec2-user/src/aarc/jenkins/docker-build.sh"
+			}
+		}
+	}
 }
