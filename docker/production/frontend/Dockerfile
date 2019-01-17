@@ -6,7 +6,7 @@ ARG AUTH_PATH="/usr/src/aarc"
 
 RUN mkdir -p ${AUTH_PATH}
 WORKDIR ${AUTH_PATH}
-ADD ./${TAR_FILE} ${AUTH_PATH}
+ADD ./aarc.frontend.tar.gz ${AUTH_PATH}
 WORKDIR ${AUTH_PATH}/frontend
 RUN ls
 CMD ["npm", "run", "server"]

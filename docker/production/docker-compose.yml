@@ -10,7 +10,6 @@ services:
         environment:
             - DATABASE=mongodb://aarc_database:${DATABASE_INTERNAL_PORT}/auth
             - PORT=${API_INTERNAL_PORT}
-            - TAR_FILE=${API_TAR_FILE}
     aarc_frontend:
         container_name: aarc_frontend
         build:
@@ -21,7 +20,6 @@ services:
             - aarc_api
         environment:
             - PORT=${FRONTEND_INTERNAL_PORT}
-            - TAR_FILE=${FRONTEND_TAR_FILE}
     aarc_database:
         container_name: aarc_db
         image: mongo:3.4.1
