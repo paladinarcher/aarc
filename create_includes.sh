@@ -14,4 +14,5 @@ FRONTEND_INCLUDES_FILE=./includesfile_frontend
 [ -e ${FRONTEND_INCLUDES_FILE} ] && rm -f ${FRONTEND_INCLUDES_FILE} 
 ls -1 ./frontend/package* >> ${FRONTEND_INCLUDES_FILE}
 ls -1 ./frontend/app.js >> ${FRONTEND_INCLUDES_FILE}
+find ./frontend/node_modules/ -type f  -name '*' -print >> ${API_INCLUDES_FILE}
 find ./frontend/build/ -type f -name '*' -print >> ${FRONTEND_INCLUDES_FILE} 
