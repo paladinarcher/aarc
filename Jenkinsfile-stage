@@ -36,8 +36,8 @@ pipeline {
 				echo 'Deploying... '
 				sh "source ./create_includes.sh"
 				sh "ls"
-				sh "tar -czf aarc.api.tar.gz --files-from=includesfile-api"
-				sh "tar -czf aarc.frontend.tar.gz --files-from=includesfile-frontend"
+				sh "tar -czf aarc.api.tar.gz --files-from=includesfile_api"
+				sh "tar -czf aarc.frontend.tar.gz --files-from=includesfile_frontend"
 				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com rm -fr /home/ec2-user/src/aarc/*"
 				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/* ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc"
 				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem /home/src/aarc/variables.env ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/production/"
