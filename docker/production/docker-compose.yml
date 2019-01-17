@@ -7,7 +7,6 @@ services:
             - "2345:${API_INTERNAL_PORT}"
         links:
             - aarc_database
-            - aarc_frontend
         environment:
             - DATABASE=mongodb://aarc_database:${DATABASE_INTERNAL_PORT}/auth
             - PORT=${API_INTERNAL_PORT}
