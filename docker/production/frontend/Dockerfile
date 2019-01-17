@@ -1,6 +1,5 @@
 FROM node:8.15.0
 LABEL maintainer "support@paladinarcher.com"
-EXPOSE 80
 
 ARG AUTH_PATH="/usr/src/aarc"
 

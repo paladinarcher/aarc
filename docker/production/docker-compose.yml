@@ -4,7 +4,7 @@ services:
         container_name: aarc_api
         build: api
         ports:
-            - "2345:${API_INTERNAL_PORT}"
+            - "8888:${API_INTERNAL_PORT}"
         links:
             - aarc_database
         environment:
@@ -15,7 +15,7 @@ services:
         build:
             context: frontend
         ports:
-            - "80:${FRONTEND_INTERNAL_PORT}"
+            - "8000:${FRONTEND_INTERNAL_PORT}"
         links:
             - aarc_api
         environment:
