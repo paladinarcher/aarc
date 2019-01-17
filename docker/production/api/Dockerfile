@@ -9,4 +9,5 @@ WORKDIR ${AUTH_PATH}
 ADD ./${API_TAR_FILE} ${AUTH_PATH}
 WORKDIR ${AUTH_PATH}/api
 COPY ./variables.env .
+RUN ls
 CMD ["npm", "run", "start"]

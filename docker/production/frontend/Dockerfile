@@ -8,4 +8,5 @@ RUN mkdir -p ${AUTH_PATH}
 WORKDIR ${AUTH_PATH}
 ADD ./${FRONTEND_TAR_FILE} ${AUTH_PATH}
 WORKDIR ${AUTH_PATH}/frontend
+RUN ls
 CMD ["npm", "run", "server"]
