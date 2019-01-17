@@ -31,7 +31,7 @@ class Login extends Component {
             .catch((err) => {
                 alert("No such user/pass combo.",err);
             })
-            window.location = "http://app.developerlevel.com/dashboard";
+            window.location = "http://stage.developerlevel.com/dashboard";
         } catch(e) {
             console.log ("### ERROR: 'try' on Login.js line 25",e)
         }
