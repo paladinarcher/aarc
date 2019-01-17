@@ -31,7 +31,7 @@ class Register extends Component {
                 firstName:this.state.firstName,
                 lastName:this.state.lastName
             }
-            await axios.post('http://localhost:8888/api/v1/register',body)
+            await axios.post('http://localhost:2345/api/v1/register',body)
                 .catch(() => console.log("### Error: Line 34 in Register.js"));
             window.location.href = "http://localhost:3006/";
             //   window.location.href = "http://app.developerlevel.com/signin";
