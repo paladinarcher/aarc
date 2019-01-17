@@ -25,7 +25,7 @@ class Reset extends Component {
                 password:this.state.password,
                 password_confirm:this.state.password_confirm
             }
-            await axios.post(`http://localhost:8888/api/v1/reset?resetToken=${this.state.token}`,body)
+            await axios.post(`http://stage.developerlevel.com:8888/api/v1/reset?resetToken=${this.state.token}`,body)
                 .catch(() => console.log("### error in Reset.js, line 28 "));
                 alert("Password reset!")
                 window.location.href = "http://localhost:3006/";

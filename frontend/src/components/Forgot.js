@@ -17,7 +17,7 @@ class Forgot extends Component {
             let data = {
                 email:this.state.email
             }
-            await axios.post('http://localhost:8888/api/v1/requestreset',data)
+            await axios.post('http://stage.developerlevel.com:8888/api/v1/requestreset',data)
                 .catch(() => {
                     console.error(`### Forgot.js, line 21`);
                 });
