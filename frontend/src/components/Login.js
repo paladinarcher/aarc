@@ -26,9 +26,13 @@ class Login extends Component {
             email:this.state.email,
             password:this.state.password
             }
-            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/login`,data, {withCredentials: true})
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/login`,data)
             .then((res) => {
 				const token = res.data.data;
+				const existingToken = localStorage.getItem("aarcToken");
+				if (existingToken) {
+					localStorage.removeItem("aarcToken");
+				}
 				localStorage.setItem("aarcToken", token)
 			})
             .catch((err) => {
