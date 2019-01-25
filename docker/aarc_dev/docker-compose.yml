@@ -1,0 +1,43 @@
+version: '3.5'
+services:
+    aarc_api:
+        container_name: aarc_api
+        build: api
+        ports:
+            - "8888:${API_INTERNAL_PORT}"
+        links:
+            - aarc_database
+        environment:
+            - DATABASE=mongodb://aarc_database:${DATABASE_INTERNAL_PORT}/auth
+            - PORT=${API_INTERNAL_PORT}
+        volumes:
+            - "../../api/:/usr/src/aarc/api/"
+        networks:
+            - aarc-parent
+    aarc_frontend:
+        container_name: aarc_frontend
+        build:
+            context: frontend
+        ports:
+            - "3333:${FRONTEND_INTERNAL_PORT}"
+        links:
+            - aarc_api
+        environment:
+            - PORT=${FRONTEND_INTERNAL_PORT}
+        volumes:
+            - "../../frontend/:/usr/src/aarc/frontend/"
+        networks:
+            - aarc-parent
+    aarc_database:
+        container_name: aarc_db
+        image: mongo:3.4.1
+        restart: always
+        ports:
+            - "27217:${DATABASE_INTERNAL_PORT}"
+        volumes:
+            - "/home/ec2-user/auth_data:/data/db"
+        networks:
+            - aarc-parent
+networks:
+    aarc-parent:
+            name: devlvl_net
