@@ -20,6 +20,7 @@ pipeline {
 		stage('Build Frontend') {
 			steps {
 				sh "cd frontend && npm i"
+				sh "cp /home/src/aarc/staging.frontend.env ./frontend/.env"
 				sh "cd frontend && npm run build"
 				sh 'sleep 10s'
 			}

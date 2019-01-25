@@ -4,6 +4,7 @@
 
 //assert success
 curl --header "Content-Type: application/json" --request GET localhost:8888/api/v1
+curl --header "Content-Type: application/json" --request GET http://stage.paladinarcher.com:8888/api/v1
 
 /**** Registration test cases ****/
 //assert fail (missing confirm-password)

@@ -30,11 +30,11 @@ class Register extends Component {
                 password_confirm:this.state.password_confirm,
                 firstName:this.state.firstName,
                 lastName:this.state.lastName
-            }
-            await axios.post('http://stage.developerlevel.com:8888/api/v1/register',body)
+			}
+			console.log(`${process.env.REACT_APP_BACKEND_URL}/api/v1/register with ${body}`)
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/register`, body)
                 .catch(() => console.log("### Error: Line 34 in Register.js"));
-            // window.location.href = "http://localhost:3006/";
-            window.location.href = "http://app.developerlevel.com/signin";
+            // window.location.href = `${process.env.REACT_APP_DL_FRONTEND_URL}/signin`;
         } catch(e) {
             alert ("Leave something blank?")
         }

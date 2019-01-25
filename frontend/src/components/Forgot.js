@@ -17,13 +17,12 @@ class Forgot extends Component {
             let data = {
                 email:this.state.email
             }
-            await axios.post('http://stage.developerlevel.com:8888/api/v1/requestreset',data)
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/requestreset`,data)
                 .catch(() => {
                     console.error(`### Forgot.js, line 21`);
                 });
             alert ("Please check your email");
-            // window.location.href = "http://localhost:3006/";
-            window.location.href = "http://app.developerlevel.com/signin";
+            // window.location.href = `${process.env.REACT_APP_DL_FRONTEND_URL}/signin`;
          } catch(e) {
             console.log("### resetPassword failed (Forgot.js line 25)",e)
         }

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Authentication API for DeveloperLevel",
   "repository": {
-	"type" : "git",
-	"url" : "https://github.com/paladinarcher/aarc"
+    "type": "git",
+    "url": "https://github.com/paladinarcher/aarc"
   },
   "engines": {
     "node": ">= 7.6.0"

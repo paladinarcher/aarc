@@ -26,12 +26,17 @@ class Login extends Component {
             email:this.state.email,
             password:this.state.password
             }
-            await axios.post('http://stage.developerlevel.com:8888/api/v1/login',data)
-            .then((res) => alert("Here's your token!", res.data))
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/login`,data, {withCredentials: true})
+            .then((res) => {
+				const token = res.data.data;
+				localStorage.setItem("aarcToken", token)
+			})
             .catch((err) => {
                 alert("No such user/pass combo.",err);
-            })
-            window.location = "http://stage.developerlevel.com/dashboard";
+			})
+			const theToken = localStorage.getItem("aarcToken");
+			console.log(theToken);
+            // window.location = `${process.env.REACT_APP_DL_FRONTEND_URL}/dashboard`;
         } catch(e) {
             console.log ("### ERROR: 'try' on Login.js line 25",e)
         }

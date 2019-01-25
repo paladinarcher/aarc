@@ -25,11 +25,10 @@ class Reset extends Component {
                 password:this.state.password,
                 password_confirm:this.state.password_confirm
             }
-            await axios.post(`http://stage.developerlevel.com:8888/api/v1/reset?resetToken=${this.state.token}`,body)
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/reset?resetToken=${this.state.token}`,body)
                 .catch(() => console.log("### error in Reset.js, line 28 "));
                 alert("Password reset!")
-                // window.location.href = "http://localhost:3006/";
-                window.location.href = "http://stage.developerlevel.com/signin";
+                window.location.href = `${process.env.REACT_APP_DL_FRONTEND_URL}/signin`;
             } catch(e) {
             console.log ("### ERROR: Reset.js, line 34: resetPass catch =",e)
         }
