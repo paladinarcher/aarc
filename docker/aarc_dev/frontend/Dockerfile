@@ -4,5 +4,8 @@ LABEL maintainer "support@paladinarcher.com"
 ARG AUTH_PATH="/usr/src/aarc"
 
 WORKDIR ${AUTH_PATH}/frontend
-RUN ls
-CMD ["npm", "run", "start"]
+COPY ./entrypoint.sh .
+RUN chmod 755 entrypoint.sh
+RUN ls && pwd
+RUN file /usr/src/aarc/frontend/entrypoint.sh
+ENTRYPOINT ["/usr/src/aarc/frontend/entrypoint.sh"]
