@@ -25,8 +25,8 @@ exports.jsonResponse = ({res, message, status, errors, data}) => {
 	status = status || 500;
 
 	const response = {
-		status,
-		message
+		id: status,
+		message,
 	}
 
 	if (errors) {
@@ -37,7 +37,7 @@ exports.jsonResponse = ({res, message, status, errors, data}) => {
 		response.data = data;
 	}
 
-	return res.status(status).json(response);
+	return res.status(status).json([response]);
 }
 
 /*
