@@ -35,7 +35,7 @@ pipeline {
 				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/* ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/fireDrum"
 				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem /home/src/aarc/variables.env ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/fireDrum/production/api"
 				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.api.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/fireDrum/production/api/"
-				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com source /home/ec2-user/src/aarc/jenkins/docker-build.sh"
+				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com source /home/ec2-user/src/aarc/fireDrum/jenkins/docker-build.sh"
 			}
 		}
 	}
