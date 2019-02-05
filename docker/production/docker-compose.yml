@@ -10,16 +10,6 @@ services:
         environment:
             - DATABASE=mongodb://aarc_database:${DATABASE_INTERNAL_PORT}/auth
             - PORT=${API_INTERNAL_PORT}
-    aarc_frontend:
-        container_name: aarc_frontend
-        build:
-            context: frontend
-        ports:
-            - "8000:${FRONTEND_INTERNAL_PORT}"
-        links:
-            - aarc_api
-        environment:
-            - PORT=${FRONTEND_INTERNAL_PORT}
     aarc_database:
         container_name: aarc_db
         image: mongo:3.4.1
