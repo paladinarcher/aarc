@@ -14,7 +14,7 @@ exports.moment = require('moment');
 exports.dump = (obj) => JSON.stringify(obj, null, 2);
 
 // Global variables for the app
-exports.siteName = `Zapier API`;
+exports.siteName = `Paladin and Archer Zapier Test`;
 exports.majorVersion = "1";
 exports.siteVersion = `${exports.majorVersion}.0.0.0`;
 exports.tokenTimeout = 1000 * 60 * 60 * 24 * 365, // one year timeout on signin token/cookies
@@ -25,7 +25,6 @@ exports.jsonResponse = ({res, message, status, errors, data}) => {
 	status = status || 500;
 
 	const response = {
-		id:5,
 		status,
 		message,
 	}
@@ -38,7 +37,7 @@ exports.jsonResponse = ({res, message, status, errors, data}) => {
 		response.data = data;
 	}
 
-	return res.status(status).json([response]);
+	return res.status(status).json(response);
 }
 
 /*

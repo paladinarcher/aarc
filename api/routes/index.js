@@ -24,7 +24,12 @@ const { catchErrors } = require('../handlers/errorHandlers');
 *	Content-Type: application/json; charset=utf-8
 *	{"status":200,"message":"Success","data":{"name":"Developer Level API","version":"1.0.0.0","now":"December 9th 2018, 5:45:48 pm"}}
 */
+router.post('/updateZapierData')
+
 router.get('/',	catchErrors(indexController.index));
+router.post('/hook/subscribe',	catchErrors(indexController.subscribe));
+
+router.post('/getStuffFromZapier')
 
 /**
 * @api {post} /api/v1/register User registration
