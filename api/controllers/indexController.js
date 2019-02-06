@@ -10,7 +10,7 @@ exports.index = async (req, res) => {
 		id: 0,
 		status,
 		message: "Success",
-		data = {
+		data: {
 			name: res.locals.globals.siteName, 
 			version: res.locals.globals.siteVersion,
 			now: res.locals.globals.moment().format('MMMM Do YYYY, h:mm:ss a'),
