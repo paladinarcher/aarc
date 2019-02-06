@@ -21,7 +21,7 @@ exports.index = async (req, res) => {
 }
 
 exports.subscribe = async (req, res) => {
-	console.log(req.data);
+	console.log(req.body);
 
 	return res.status(200).json([{
 		id: 0,
@@ -31,4 +31,9 @@ exports.subscribe = async (req, res) => {
 
 exports.createEvent = async (req, res) => {
 	console.log("createEvent called");
+}
+
+
+exports.receiveData = async (req, res) => {
+	return res.status(200).json(req.body);
 }

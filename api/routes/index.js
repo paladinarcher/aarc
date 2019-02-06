@@ -29,7 +29,7 @@ router.post('/updateZapierData')
 router.get('/',	catchErrors(indexController.index));
 router.post('/hook/subscribe',	catchErrors(indexController.subscribe));
 
-router.post('/getStuffFromZapier')
+router.post('/receiveData', catchErrors(indexController.receiveData));
 
 /**
 * @api {post} /api/v1/register User registration
