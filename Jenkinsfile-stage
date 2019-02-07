@@ -44,7 +44,7 @@ pipeline {
 				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com mkdir -p /home/ec2-user/aarc/default_db/"
 				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/* ec2-user@stage.developerlevel.com:/home/ec2-user/aarc/default_docker"
 				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem /home/src/aarc/variables.env ec2-user@stage.developerlevel.com:/home/ec2-user/aarc/default_docker/production/api"
-				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.api.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/aarc/defaulte_docker/production/api/"
+				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.api.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/aarc/default_docker/production/api/"
 				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.frontend.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/aarc/default_docker/production/frontend/"
 				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com source /home/ec2-user/aarc/default_docker/jenkins/docker-build.sh"
 			}
