@@ -17,4 +17,4 @@ services:
         ports:
             - "27227:${DATABASE_INTERNAL_PORT}"
         volumes:
-            - "/home/ec2-user/auth_data:/data/db"
+            - "/home/ec2-user/aarc/firedrum_db:/data/db"

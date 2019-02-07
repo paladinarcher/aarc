@@ -29,13 +29,14 @@ pipeline {
 				echo 'Deploying... '
 				sh "source ./create_includes.sh"
 				sh "ls"
-				sh "tar -czf aarc.api.tar.gz --files-from=includesfile_api"
-				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com rm -fr /home/ec2-user/src/aarc/fireDrum/*"
-				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com mkdir -p /home/ec2-user/src/aarc/fireDrum/"
-				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/* ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/fireDrum"
-				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem /home/src/aarc/variables.env ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/fireDrum/production/api"
-				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.api.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/fireDrum/production/api/"
-				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com source /home/ec2-user/src/aarc/fireDrum/jenkins/docker-build.sh"
+				sh "tar -czf aarc.firedrum.api.tar.gz --files-from=includesfile_api"
+				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com rm -fr /home/ec2-user/aarc/firedrum*"
+				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com mkdir -p /home/ec2-user/aarc/firedrum_docker/"
+				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com mkdir -p /home/ec2-user/aarc/firedrum_db/"
+				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/* ec2-user@stage.developerlevel.com:/home/ec2-user/aarc/firedrum_docker"
+				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem /home/src/aarc/variables.env ec2-user@stage.developerlevel.com:/home/ec2-user/aarc/firedrum_docker/production/api"
+				sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./aarc.firedrum.api.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/aarc/firedrum_docker/production/api/"
+				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com source /home/ec2-user/aarc/firedrum_docker/jenkins/docker-build.sh"
 			}
 		}
 	}

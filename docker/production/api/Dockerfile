@@ -9,5 +9,4 @@ ADD ./aarc.api.tar.gz ${AUTH_PATH}
 WORKDIR ${AUTH_PATH}/api
 COPY ./variables.env .
 RUN ls
-ENV PORT=9999
 CMD ["npm", "run", "start"]
