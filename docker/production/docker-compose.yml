@@ -27,4 +27,4 @@ services:
         ports:
             - "27217:${DATABASE_INTERNAL_PORT}"
         volumes:
-            - "/home/ec2-user/auth_data:/data/db"
+            - "/home/ec2-user/aarc/default_db:/data/db"
