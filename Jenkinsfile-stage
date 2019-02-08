@@ -39,7 +39,7 @@ pipeline {
 				sh "ls"
 				sh "tar -czf aarc.api.tar.gz --files-from=includesfile_api"
 				sh "tar -czf aarc.frontend.tar.gz --files-from=includesfile_frontend"
-				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com rm -fr /home/ec2-user/aarc/default*"
+				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com sudo rm -fr /home/ec2-user/aarc/default*"
 				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com mkdir -p /home/ec2-user/aarc/default_docker/"
 				sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com mkdir -p /home/ec2-user/aarc/default_db/"
 				sh "scp -r -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ./docker/* ec2-user@stage.developerlevel.com:/home/ec2-user/aarc/default_docker"
