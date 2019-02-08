@@ -21,7 +21,7 @@ exports.index = async (req, res) => {
 }
 
 exports.subscribe = async (req, res) => {
-	console.log(req.body);
+	console.log(req);
 
 	return res.status(200).json([{
 		id: 0,
