@@ -1,9 +1,13 @@
+const axios = require('axios');
+
 /*
  * Root level api
  */
 global.subscribers = [];
 
 exports.index = async (req, res) => {
+	console.log("index AARC end point");
+
 	const status = 200;
 
 	const response = [{
@@ -21,19 +25,54 @@ exports.index = async (req, res) => {
 }
 
 exports.subscribe = async (req, res) => {
-	console.log(req);
+	console.log("subscribe AARC end point");
 
-	return res.status(200).json([{
-		id: 0,
-		message: "Subscription worked"
-	}]);
+	const url = req.body.url;
+
+	global.subscribers.push(url);
+
+	return res.status(200).json({
+		message: "Success",
+		url
+	});
 }
 
-exports.createEvent = async (req, res) => {
-	console.log("createEvent called");
+exports.unsubscribe = async (req, res) => {
+	console.log("unsubscribe AARC end point");
+
+	if (!req.query.hookId) return next();
+
+	const hookId = req.query.hookId;
+
+	if (hookId > -1) {
+		global.subscribers.splice(hookId, 1);
+	}
+
+	return res.status(200).json({
+		message: "Success",
+		hookId
+	});
 }
 
+exports.createAnEvent = async (req, res) => {
+	console.log("createAnEvent AARC end point");
+	console.log(globals.subscribers[0]);
+
+	const response = await axios.post(globals.subscribers[0], {
+		firstName: 'Fred',
+		lastName: 'Flintstone'
+	}).catch(function (error) {
+		console.log(error);
+	});
+
+	console.log(response);
+
+	res.status(200).json({message: "Success"});
+}
 
 exports.receiveData = async (req, res) => {
-	return res.status(200).json(req.body);
+	console.log("recieveData AARC end point");
+
+	// Echo back what is received
+	return res.status(200).json(req.body.json);
 }
