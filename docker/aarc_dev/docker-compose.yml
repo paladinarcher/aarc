@@ -40,4 +40,4 @@ services:
             - aarc-parent
 networks:
     aarc-parent:
-            name: devlvl_net
+        name: devlvl_net
