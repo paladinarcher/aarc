@@ -1,6 +1,36 @@
-# Auth-A-Rama Centra. 
+# Auth-A-Rama Centra.
 
 A stand-alone authorization API created with Node, Express, Mongoose, MondoDB, JWT, and React
+
+# Installation & Configuration
+
+Steps to install all the dependencies and bring this api up using docker
+
+## Install Dependencies
+
+1. Install all the npm dependencies by running npm install in the `/api` and `/frontend` directories
+
+## Configs
+
+1. in the root of `/api` a file named `variables.env` should be created. there is a `variables.env.sample` file. Below is an example of a working config for this file. Create a `variables.env` file in `/api`
+
+```
+NODE_ENV=development
+JWT_ALGORITHM="HS256"
+SALT=10
+FRONTEND_URL="http://localhost:7777"
+MAIL_HOST="smtp.mailtrap.io"
+MAIL_PORT=2525
+MAIL_USER="9963aac7b160ba"
+MAIL_PASS="60033e21efa7b3"
+
+```
+
+## Running the Microservice
+
+1. ensure all of the installation steps were completed
+2. from `/docker/aarc_dev` run `docker-compose build`
+3. after build runs, run `docker-compose up`
 
 # Token validation
 
@@ -25,7 +55,7 @@ $ curl --header "Content-Type: application/json" --request POST --data '{"email"
 
 ```
 
-Alternatively, a login can be done by using the GUI at `http://stage.developerlevel.com:8000/`. When using the GUI, the token is stored in Local Storage, which can be viewed in the browser's developer tools. It is stored in a property called `aarcToken`. Note, local storage properties and values are only accessible to pages originating from the same domain and port, which in this example are `stage.paladinarcher.com` and `8888` respectively. 
+Alternatively, a login can be done by using the GUI at `http://stage.developerlevel.com:8000/`. When using the GUI, the token is stored in Local Storage, which can be viewed in the browser's developer tools. It is stored in a property called `aarcToken`. Note, local storage properties and values are only accessible to pages originating from the same domain and port, which in this example are `stage.paladinarcher.com` and `8888` respectively.
 
 ## Token validation
 
