@@ -12,9 +12,7 @@ Steps to install all the dependencies and bring this api up using docker
 
 ## Configs
 
-1. there is an `.env` file in the root of `/docker/production`. A similar or the same file should exist in the root of `/docker/aarc_dev`. Copy and paste `/docker/production/.env` into `/docker/aarc_dev`.
-
-2. in the root of `/api` a file named `variables.env` should be created. there is a `variables.env.sample` file. Below is an example of a working config for this file. Create a `variables.env` file in `/api`
+1. in the root of `/api` a file named `variables.env` should be created. there is a `variables.env.sample` file. Below is an example of a working config for this file. Create a `variables.env` file in `/api`
 
 ```
 NODE_ENV=development
