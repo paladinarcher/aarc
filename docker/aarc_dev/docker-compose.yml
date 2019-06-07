@@ -35,9 +35,11 @@ services:
         ports:
             - "27217:${DATABASE_INTERNAL_PORT}"
         volumes:
-            - "/home/ec2-user/auth_data:/data/db"
+            - "aarcdb-data:/data/db"
         networks:
             - aarc-parent
+volumes:
+    aarcdb-data:
 networks:
     aarc-parent:
         name: devlvl_net

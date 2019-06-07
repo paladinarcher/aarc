@@ -5,4 +5,5 @@ ARG AUTH_PATH="/usr/src/aarc"
 
 WORKDIR ${AUTH_PATH}/api
 RUN ls
+RUN npm i -g nodemon
 CMD ["npm", "run", "dev"]
